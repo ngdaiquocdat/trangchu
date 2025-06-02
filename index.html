@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trang bảo vệ</title>
+  <title>Trang chủ</title>
   <style>
     * {
       box-sizing: border-box;
@@ -20,6 +20,7 @@
       align-items: center;
       justify-content: center;
       padding: 20px;
+      overflow: hidden;
     }
 
     #container {
@@ -30,6 +31,7 @@
       max-width: 400px;
       text-align: center;
       box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      z-index: 1;
     }
 
     input[type="password"] {
@@ -56,8 +58,40 @@
       background-color: #219150;
     }
 
-    #content {
-      display: none;
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: red;
+      transform: rotate(45deg);
+      animation: fall 2s linear forwards;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+      }
     }
   </style>
 </head>
@@ -68,23 +102,34 @@
       <input type="password" id="password" placeholder="Mật khẩu...">
       <button onclick="checkPassword()">Truy cập</button>
     </div>
-
-    <div id="content">
-      <h2>🎉 Chào mừng bạn!</h2>
-      <p>Bạn đã nhập đúng mật khẩu và truy cập thành công.</p>
-    </div>
   </div>
 
   <script>
     function checkPassword() {
       const input = document.getElementById("password").value;
       if (input === "0001") {
-        document.getElementById("login-form").style.display = "none";
-        document.getElementById("content").style.display = "block";
+        // 👉 Thay link dưới đây bằng trang bạn muốn chuyển tới
+        window.location.href = "https://example.com";
       } else {
         alert("Sai mật khẩu!");
       }
     }
+
+    function createHeart(x, y) {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = x + "px";
+      heart.style.top = y + "px";
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 2000);
+    }
+
+    // Gọi hiệu ứng trái tim khi rê chuột hoặc bấm chuột
+    document.addEventListener("mousemove", (e) => createHeart(e.clientX, e.clientY));
+    document.addEventListener("click", (e) => createHeart(e.clientX, e.clientY));
   </script>
 </body>
 </html>
