@@ -37,7 +37,6 @@
       text-align: center;
       box-shadow: 0 10px 20px rgba(0,0,0,0.1);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
     }
 
     .app-card:hover {
@@ -70,61 +69,6 @@
     .app-card a:hover {
       background-color: #27ae60;
     }
-
-    /* Popup chờ tải */
-    #wait-popup {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.7);
-      z-index: 9999;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      color: white;
-      font-size: 22px;
-      font-weight: bold;
-      user-select: none;
-    }
-
-    .circle-countdown {
-      margin-top: 20px;
-      width: 100px;
-      height: 100px;
-      position: relative;
-    }
-
-    svg {
-      transform: rotate(-90deg);
-      width: 100px;
-      height: 100px;
-    }
-
-    circle {
-      fill: none;
-      stroke-width: 10;
-      stroke-linecap: round;
-    }
-
-    .bg {
-      stroke: rgba(255, 255, 255, 0.2);
-    }
-
-    .progress {
-      stroke: #27ae60;
-      stroke-dasharray: 283;
-      stroke-dashoffset: 0;
-      transition: stroke-dashoffset 1s linear;
-    }
-
-    .count-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 28px;
-    }
   </style>
 </head>
 <body>
@@ -135,69 +79,15 @@
   <div class="app-card">
     <h3>Regedit V1</h3>
     <p>Chức Năng: Tăng nhạy, Aim Fov, ..... </p>
-    <a href="https://www.mediafire.com/file/9vdxwukqjytifsv/Super_Config%E2%9A%A1%EF%B8%8F.p12/file" class="download-link">Tải về</a>
+    <a href="https://www.mediafire.com/file/9vdxwukqjytifsv/Super_Config%E2%9A%A1%EF%B8%8F.p12/file" target="_blank" rel="noopener noreferrer">Tải về</a>
   </div>
 
   <div class="app-card">
     <h3>Ứng dụng 2</h3>
     <p>Đạt.</p>
-    <a href="https://example.com/download2" class="download-link">Tải về</a>
+    <a href="https://example.com/download2" target="_blank" rel="noopener noreferrer">Tải về</a>
   </div>
 </section>
-
-<div id="wait-popup">
-  <div>Vui lòng chờ trong <span id="countdown">10</span> giây...</div>
-  <div class="circle-countdown">
-    <svg>
-      <circle class="bg" cx="50" cy="50" r="45"></circle>
-      <circle class="progress" cx="50" cy="50" r="45"></circle>
-    </svg>
-    <div class="count-text" id="count-text">10</div>
-  </div>
-</div>
-
-<script>
-  const waitPopup = document.getElementById('wait-popup');
-  const countdownText = document.getElementById('countdown');
-  const countText = document.getElementById('count-text');
-  const progressCircle = document.querySelector('.progress');
-  const circumference = 2 * Math.PI * 45;
-
-  function setProgress(percent) {
-    const offset = circumference - (percent / 100) * circumference;
-    progressCircle.style.strokeDashoffset = offset;
-  }
-
-  progressCircle.style.strokeDasharray = circumference;
-  setProgress(0);
-
-  document.querySelectorAll('.download-link').forEach(link => {
-    link.addEventListener('click', function(event) {
-      event.preventDefault();
-
-      let seconds = 10;
-      waitPopup.style.display = 'flex';
-      countdownText.textContent = seconds;
-      countText.textContent = seconds;
-      setProgress(0);
-
-      let countdownInterval = setInterval(() => {
-        seconds--;
-        countdownText.textContent = seconds;
-        countText.textContent = seconds;
-
-        const percent = ((10 - seconds) / 10) * 100;
-        setProgress(percent);
-
-        if (seconds <= 0) {
-          clearInterval(countdownInterval);
-          waitPopup.style.display = 'none';
-          window.location.href = link.href;
-        }
-      }, 1000);
-    });
-  });
-</script>
 
 </body>
 </html>
