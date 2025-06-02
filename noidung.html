@@ -5,6 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kho Ứng Dụng</title>
   <style>
+    <style>
+  .star {
+    position: fixed;
+    top: -10px;
+    width: 2px;
+    height: 80px;
+    background: white;
+    opacity: 0.8;
+    transform: rotate(45deg);
+    animation: fallStar linear forwards;
+  }
+
+  @keyframes fallStar {
+    to {
+      transform: translateY(100vh) translateX(50px) rotate(45deg);
+      opacity: 0;
+    }
+  }
+</style>
+
+<script>
+  function createFallingStar() {
+    const star = document.createElement("div");
+    star.classList.add("star");
+    star.style.left = Math.random() * window.innerWidth + "px";
+    star.style.animationDuration = (1 + Math.random() * 2) + "s";
+    document.body.appendChild(star);
+
+    setTimeout(() => star.remove(), 3000);
+  }
+
+  setInterval(createFallingStar, 300);
+</script>
+
     body {
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(to bottom right, #ecf0f1, #d0e0f0);
