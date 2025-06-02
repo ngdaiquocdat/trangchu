@@ -3,289 +3,212 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kho Ứng Dụng</title>
+  <title>Kho Ứng Dụng Của Đạt</title>
   <style>
+    :root {
+      --primary: #3498db;
+      --accent: #2ecc71;
+      --text: #333;
+      --background: #f4f8fb;
+      --card-bg: #ffffff;
+    }
+
     * {
       box-sizing: border-box;
-      margin: 0; padding: 0;
-      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      background: linear-gradient(to bottom right, #0a1a2b, #112d4e);
-      color: #eee;
-      min-height: 100vh;
-      padding: 40px 20px;
-      overflow-x: hidden;
-      position: relative;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--background);
+      color: var(--text);
+      line-height: 1.6;
     }
 
     header {
-      text-align: center;
-      font-size: 28px;
-      margin-bottom: 30px;
-      font-weight: bold;
-      color: #90caf9;
-      text-shadow: 0 0 10px #5c9ef8;
-      user-select: none;
-    }
-
-    .app-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 25px;
-      z-index: 10;
-      position: relative;
-    }
-
-    .app-card {
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 15px;
-      padding: 30px 20px;
-      text-align: center;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: default;
-      backdrop-filter: blur(8px);
-      color: #ddd;
-      user-select: none;
-    }
-
-    .app-card:hover {
-      transform: rotateY(5deg) rotateX(3deg) scale(1.05);
-      box-shadow: 0 20px 30px rgba(255, 255, 255, 0.4);
-    }
-
-    .app-card h3 {
-      font-size: 22px;
-      margin-bottom: 10px;
-      text-shadow: 0 0 5px #90caf9;
-    }
-
-    .app-card p {
-      font-size: 14px;
-      margin-bottom: 15px;
-      color: #ccc;
-    }
-
-    .app-card button, .app-card a {
-      padding: 10px 20px;
-      background-color: #42a5f5;
-      border: none;
-      border-radius: 8px;
+      background: var(--primary);
       color: white;
-      font-size: 16px;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-      transition: background-color 0.3s;
-      user-select: none;
+      text-align: center;
+      padding: 25px 10px;
+      font-size: 28px;
+      font-weight: bold;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
-    .app-card button:hover, .app-card a:hover {
-      background-color: #1e88e5;
-    }
-
-    /* Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 9999;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(5px);
-      align-items: center;
+    nav {
+      background: #2980b9;
+      display: flex;
       justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      padding: 10px;
     }
 
-    .modal-content {
-      background: #14213d;
-      padding: 30px 20px;
-      border-radius: 12px;
-      text-align: center;
-      width: 90%;
-      max-width: 400px;
-      color: #90caf9;
-      animation: fadeIn 0.3s ease;
-      position: relative;
-      box-shadow: 0 0 15px #2196f3;
-      user-select: none;
-    }
-
-    .modal-content input {
-      padding: 12px;
-      width: 100%;
-      margin-top: 15px;
-      border-radius: 8px;
-      border: none;
-      font-size: 16px;
-      outline: none;
-      background-color: #1b263b;
-      color: #eee;
-      box-shadow: inset 0 0 5px #2196f3;
-    }
-
-    .modal-content button {
-      margin-top: 15px;
-      padding: 12px 20px;
-      background-color: #2196f3;
+    nav a {
       color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      user-select: none;
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      transition: 0.3s;
     }
 
-    .modal-content button:hover {
-      background-color: #0d47a1;
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.3);
     }
 
-    .close {
-      position: absolute;
-      top: 15px;
-      right: 20px;
-      font-size: 28px;
-      cursor: pointer;
-      color: #90caf9;
-      user-select: none;
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 30px 20px;
     }
 
-    #errorMsg {
-      color: #ff6b6b;
-      margin-top: 10px;
-      min-height: 20px;
-      font-weight: 600;
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 25px;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
+    .card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+      text-align: center;
+      transition: transform 0.2s ease, box-shadow 0.3s;
     }
 
-    /* Star falling */
-    .star {
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    }
+
+    .card img {
+      width: 64px;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #222;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 15px;
+    }
+
+    .card a {
+      display: inline-block;
+      padding: 10px 20px;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+
+    .card a:hover {
+      background: #27ae60;
+    }
+
+    /* ❄ Snow - light and smooth */
+    .snowflake {
       position: fixed;
       top: -10px;
-      background: #fff;
-      border-radius: 50%;
-      opacity: 0.8;
+      color: white;
+      font-size: 1rem;
+      animation: fall linear infinite;
+      opacity: 0.5;
       pointer-events: none;
-      animation-name: fallStar;
-      animation-timing-function: linear;
-      animation-iteration-count: infinite;
-      will-change: transform;
-      filter: drop-shadow(0 0 2px #90caf9);
-      user-select: none;
-      z-index: 1;
     }
 
-    @keyframes fallStar {
-      to {
-        transform: translateY(110vh);
-        opacity: 0;
+    @keyframes fall {
+      0% {
+        transform: translateY(-10px);
+      }
+      100% {
+        transform: translateY(100vh);
+      }
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        gap: 8px;
+      }
+
+      nav a {
+        padding: 8px 12px;
       }
     }
   </style>
 </head>
 <body>
 
-  <header>📱 Kho Ứng Dụng</header>
+<header>📦 Kho Ứng Dụng</header>
 
-  <section class="app-grid">
-    <!-- Ứng dụng 1: Regedit V1 -->
-    <div class="app-card">
+<nav>
+  <a href="#">Trang chủ</a>
+  <a href="#">Free Fire</a>
+  <a href="#">Liên Quân</a>
+  <a href="#">Random Acc</a>
+  <a href="#">Tool / Regedit</a>
+</nav>
+
+<div class="container">
+  <div class="grid">
+
+    <div class="card">
+      <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="Regedit Icon">
       <h3>Regedit V1</h3>
-      <p>Chức Năng: Tăng nhạy, Aim Fov, ...</p>
-      <button onclick="openModal()">Tải về</button>
+      <p>Tăng nhạy, Aim Fov, giảm lag, cấu hình tối ưu...</p>
+      <a href="#" onclick="downloadWithPassword()">Tải về</a>
     </div>
 
-    <!-- Ứng dụng 2 -->
-    <div class="app-card">
+    <div class="card">
+      <img src="https://cdn-icons-png.flaticon.com/512/190/190406.png" alt="App Icon">
       <h3>Ứng dụng 2</h3>
-      <p>Đạt.</p>
-      <a href="https://www.mediafire.com/file/9vdxwukqjytifsv/Super_Config%E2%9A%A1%EF%B8%8F.p12/file" target="_blank" rel="noopener noreferrer">Tải về</a>
+      <p>Phiên bản tối ưu cho Free Fire | Mượt + FPS cao.</p>
+      <a href="https://example.com/download2" target="_blank">Tải về</a>
     </div>
 
-    <!-- Ứng dụng 3 -->
-    <div class="app-card">
-      <h3>Ứng dụng 3</h3>
-      <p>demo</p>
-      <a href="https://www.mediafire.com/file/9vdxwukqjytifsv/Super_Config%E2%9A%A1%EF%B8%8F.p12/file" target="_blank" rel="noopener noreferrer">Tải về</a>
-    </div>
-
-    <!-- Ứng dụng 4 -->
-    <div class="app-card">
-      <h3>hack ff</h3>
-      <p>500k</p>
-      <a href="https://www.mediafire.com/file/9vdxwukqjytifsv/Super_Config%E2%9A%A1%EF%B8%8F.p12/file" target="_blank" rel="noopener noreferrer">Tải về</a>
-    </div>
-  </section>
-
-  <!-- Modal mật khẩu -->
-  <div id="passwordModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <h3>Nhập mật khẩu để tải</h3>
-      <input type="password" id="downloadPassword" placeholder="Nhập mật khẩu..." autocomplete="off" />
-      <button onclick="checkDownloadPassword()">Xác nhận</button>
-      <p id="errorMsg"></p>
-    </div>
   </div>
+</div>
 
-  <script>
-    const modal = document.getElementById("passwordModal");
-    const passwordInput = document.getElementById("downloadPassword");
-    const errorMsg = document.getElementById("errorMsg");
+<!-- 🌨 Snow -->
+<script>
+  function createSnowflake() {
+    const snowflake = document.createElement("div");
+    snowflake.classList.add("snowflake");
+    snowflake.textContent = "❄";
+    snowflake.style.left = Math.random() * window.innerWidth + "px";
+    snowflake.style.animationDuration = (5 + Math.random() * 5) + "s";
+    snowflake.style.fontSize = (10 + Math.random() * 12) + "px";
+    document.body.appendChild(snowflake);
+    setTimeout(() => snowflake.remove(), 10000);
+  }
+  setInterval(createSnowflake, 700); // ít tuyết hơn
+</script>
 
-    function openModal() {
-      modal.style.display = "flex";
-      passwordInput.value = "";
-      errorMsg.textContent = "";
-      passwordInput.focus();
+<!-- 🔒 Password download -->
+<script>
+  function downloadWithPassword() {
+    const password = prompt("🔒 Nhập mật khẩu để tải:");
+    const correct = "xqKZmdPqre";
+    if (password === correct) {
+      window.open("https://www.mediafire.com/file/9vdxwukqjytifsv/Super_Config%E2%9A%A1%EF%B8%8F.p12/file", "_blank");
+    } else if (password) {
+      alert("❌ Sai mật khẩu.");
     }
+  }
+</script>
 
-    function closeModal() {
-      modal.style.display = "none";
-    }
-
-    function checkDownloadPassword() {
-      const password = passwordInput.value.trim();
-      if (password === "0001") {
-        window.location.href = "https://www.mediafire.com/file/9vdxwukqjytifsv/Super_Config%E2%9A%A1%EF%B8%8F.p12/file";
-      } else {
-        errorMsg.textContent = "Sai mật khẩu!";
-      }
-    }
-
-    // Đóng modal khi bấm ngoài modal-content
-    window.onclick = function(event) {
-      if (event.target == modal) {
-        closeModal();
-      }
-    }
-
-    // Hiệu ứng sao rơi
-    function createStar() {
-      const star = document.createElement('div');
-      star.classList.add('star');
-      const size = Math.random() * 3 + 1; // 1px - 4px
-      star.style.width = size + 'px';
-      star.style.height = size + 'px';
-      star.style.left = Math.random() * window.innerWidth + 'px';
-      star.style.animationDuration = (5 + Math.random() * 5) + 's';
-      star.style.animationDelay = (Math.random() * 10) + 's';
-      document.body.appendChild(star);
-
-      // Xóa sao sau animation kết thúc
-      star.addEventListener('animationend', () => {
-        star.remove();
-      });
-    }
-
-    // Tạo sao rơi liên tục
-    setInterval(createStar, 300);
-  </script>
 </body>
 </html>
