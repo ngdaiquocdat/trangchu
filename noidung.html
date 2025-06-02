@@ -5,12 +5,77 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kho Ứng Dụng</title>
   <style>
-    /* Các style cũ... */
-    /* Thêm style cho popup chờ */
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #ecf0f1, #d0e0f0);
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #3498db;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 26px;
+      font-weight: bold;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    .app-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 25px;
+      padding: 40px 20px;
+    }
+
+    .app-card {
+      background-color: white;
+      border-radius: 15px;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .app-card:hover {
+      transform: rotateY(5deg) rotateX(3deg) scale(1.02);
+      box-shadow: 0 20px 30px rgba(0,0,0,0.2);
+    }
+
+    .app-card h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .app-card p {
+      font-size: 14px;
+      margin-bottom: 15px;
+      color: #666;
+    }
+
+    .app-card a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #2ecc71;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+
+    .app-card a:hover {
+      background-color: #27ae60;
+    }
+
+    /* Popup chờ tải */
     #wait-popup {
       display: none;
       position: fixed;
-      top: 0; left: 0; right:0; bottom:0;
+      top: 0; left: 0; right: 0; bottom: 0;
       background: rgba(0,0,0,0.7);
       z-index: 9999;
       display: flex;
@@ -18,7 +83,7 @@
       align-items: center;
       flex-direction: column;
       color: white;
-      font-size: 20px;
+      font-size: 22px;
       font-weight: bold;
       user-select: none;
     }
@@ -30,7 +95,6 @@
       position: relative;
     }
 
-    /* Vòng tròn đếm ngược bằng SVG */
     svg {
       transform: rotate(-90deg);
       width: 100px;
@@ -68,16 +132,19 @@
 <header>📱 Kho Ứng Dụng</header>
 
 <section class="app-grid">
-  <!-- Ứng dụng ví dụ -->
   <div class="app-card">
     <h3>Regedit V1</h3>
     <p>Chức Năng: Tăng nhạy, Aim Fov, ..... </p>
     <a href="https://www.mediafire.com/file/9vdxwukqjytifsv/Super_Config%E2%9A%A1%EF%B8%8F.p12/file" class="download-link">Tải về</a>
   </div>
-  <!-- Thêm các app khác tương tự -->
+
+  <div class="app-card">
+    <h3>Ứng dụng 2</h3>
+    <p>Đạt.</p>
+    <a href="https://example.com/download2" class="download-link">Tải về</a>
+  </div>
 </section>
 
-<!-- Popup chờ tải -->
 <div id="wait-popup">
   <div>Vui lòng chờ trong <span id="countdown">10</span> giây...</div>
   <div class="circle-countdown">
@@ -109,7 +176,7 @@
 
   document.querySelectorAll('.download-link').forEach(link => {
     link.addEventListener('click', function(event) {
-      event.preventDefault(); // Ngăn tải về ngay lập tức
+      event.preventDefault();
 
       let seconds = 10;
       waitPopup.style.display = 'flex';
@@ -128,7 +195,6 @@
         if (seconds <= 0) {
           clearInterval(countdownInterval);
           waitPopup.style.display = 'none';
-          // Chuyển hướng đến link tải
           window.location.href = link.href;
         }
       }, 1000);
