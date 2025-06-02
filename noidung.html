@@ -79,7 +79,7 @@
   <div class="app-card">
     <h3>Regedit V1</h3>
     <p>Chức Năng: Tăng nhạy, Aim Fov, ..... </p>
-    <a href="https://www.mediafire.com/file/9vdxwukqjytifsv/Super_Config%E2%9A%A1%EF%B8%8F.p12/file" target="_blank" rel="noopener noreferrer">Tải về</a>
+    <a href="#" onclick="downloadWithPassword()">Tải về</a>
   </div>
 
   <div class="app-card">
@@ -88,6 +88,22 @@
     <a href="https://example.com/download2" target="_blank" rel="noopener noreferrer">Tải về</a>
   </div>
 </section>
+
+<script>
+  function downloadWithPassword() {
+    const password = prompt("🔒 Nhập mật khẩu để tải:");
+    const correctPassword = "xqKZmdPqre"; // Bạn có thể thay đổi mật khẩu tại đây
+
+    if (password === correctPassword) {
+      window.open("https://www.mediafire.com/file/9vdxwukqjytifsv/Super_Config%E2%9A%A1%EF%B8%8F.p12/file", "_blank");
+    } else if (password === null) {
+      // Người dùng bấm Cancel
+      alert("Hủy bỏ tải về.");
+    } else {
+      alert("❌ Mật khẩu sai. Vui lòng nạp tiền để mua mật khẩu!!!.");
+    }
+  }
+</script>
 
 </body>
 </html>
