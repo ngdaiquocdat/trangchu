@@ -5,73 +5,89 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kho Ứng Dụng</title>
   <style>
-    body {
+    * {
+      box-sizing: border-box;
+      padding: 0;
       margin: 0;
+    }
+
+    body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f2f2f2;
+      background: linear-gradient(to bottom right, #ecf0f1, #d0e0f0);
       color: #333;
     }
 
     header {
       background-color: #3498db;
       color: white;
-      padding: 20px;
       text-align: center;
-      font-size: 24px;
+      padding: 20px;
+      font-size: 26px;
+      font-weight: bold;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     }
 
     .app-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      padding: 30px;
+      gap: 25px;
+      padding: 40px 20px;
     }
 
     .app-card {
       background-color: white;
       border-radius: 15px;
-      padding: 20px;
+      padding: 30px 20px;
       text-align: center;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      transform-style: preserve-3d;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+      animation: fadeInUp 0.6s forwards;
     }
+
+    .app-card:nth-child(1) { animation-delay: 0.1s; }
+    .app-card:nth-child(2) { animation-delay: 0.2s; }
+    .app-card:nth-child(3) { animation-delay: 0.3s; }
+    .app-card:nth-child(4) { animation-delay: 0.4s; }
 
     .app-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    }
-
-    .app-card img {
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
-      border-radius: 10px;
-      margin-bottom: 15px;
+      transform: rotateY(5deg) rotateX(3deg) scale(1.02);
+      box-shadow: 0 20px 30px rgba(0,0,0,0.2);
     }
 
     .app-card h3 {
+      font-size: 20px;
       margin-bottom: 10px;
-      font-size: 18px;
     }
 
     .app-card p {
       font-size: 14px;
-      color: #666;
       margin-bottom: 15px;
+      color: #666;
     }
 
     .app-card a {
       display: inline-block;
-      padding: 10px 15px;
-      background-color: #27ae60;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #2ecc71;
       color: white;
-      border-radius: 8px;
       text-decoration: none;
-      transition: background 0.3s;
+      border-radius: 8px;
+      transition: background-color 0.3s;
     }
 
     .app-card a:hover {
-      background-color: #219150;
+      background-color: #27ae60;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
   </style>
 </head>
@@ -82,31 +98,32 @@
 <section class="app-grid">
   <!-- Ứng dụng 1 -->
   <div class="app-card">
-    <img src="https://cdn-icons-png.flaticon.com/512/888/888879.png" alt="App Icon">
-    <h3>Ứng dụng A</h3>
-    <p>Ứng dụng nghe nhạc miễn phí, dễ dùng.</p>
-    <a href="https://example.com/app-a.apk" target="_blank">Tải về</a>
+    <h3>Ứng dụng Ghi chú</h3>
+    <p>Ghi chú nhanh, an toàn và tiện lợi.</p>
+    <a href="https://example.com/ghichu.apk" target="_blank">Tải về</a>
   </div>
 
   <!-- Ứng dụng 2 -->
   <div class="app-card">
-    <img src="https://cdn-icons-png.flaticon.com/512/888/888879.png" alt="App Icon">
-    <h3>Ứng dụng B</h3>
-    <p>Ghi chú nhanh, tiện lợi và an toàn.</p>
-    <a href="https://example.com/app-b.apk" target="_blank">Tải về</a>
+    <h3>Ứng dụng Âm nhạc</h3>
+    <p>Nghe nhạc offline, playlist yêu thích.</p>
+    <a href="https://example.com/nhac.apk" target="_blank">Tải về</a>
   </div>
 
   <!-- Ứng dụng 3 -->
   <div class="app-card">
-    <img src="https://cdn-icons-png.flaticon.com/512/888/888879.png" alt="App Icon">
-    <h3>Ứng dụng C</h3>
-    <p>Chỉnh sửa ảnh đơn giản với nhiều hiệu ứng.</p>
-    <a href="https://example.com/app-c.apk" target="_blank">Tải về</a>
+    <h3>Ứng dụng Thời tiết</h3>
+    <p>Xem dự báo thời tiết chính xác theo vị trí.</p>
+    <a href="https://example.com/thoitiet.apk" target="_blank">Tải về</a>
   </div>
 
-  <!-- Thêm nhiều ứng dụng tương tự -->
+  <!-- Ứng dụng 4 -->
+  <div class="app-card">
+    <h3>Ứng dụng Chỉnh ảnh</h3>
+    <p>Chỉnh sửa ảnh với bộ lọc hiện đại.</p>
+    <a href="https://example.com/chinhanh.apk" target="_blank">Tải về</a>
+  </div>
 </section>
 
 </body>
 </html>
-
