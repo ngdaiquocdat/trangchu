@@ -1,93 +1,65 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kho Ứng Dụng</title>
   <style>
-    * {
-      box-sizing: border-box;
-      padding: 0;
-      margin: 0;
-    }
-
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom right, #ecf0f1, #d0e0f0);
-      color: #333;
-    }
-
-    header {
-      background-color: #3498db;
+    /* Các style cũ... */
+    /* Thêm style cho popup chờ */
+    #wait-popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right:0; bottom:0;
+      background: rgba(0,0,0,0.7);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
       color: white;
-      text-align: center;
-      padding: 20px;
-      font-size: 26px;
-      font-weight: bold;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    }
-
-    .app-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 25px;
-      padding: 40px 20px;
-    }
-
-    .app-card {
-      background-color: white;
-      border-radius: 15px;
-      padding: 30px 20px;
-      text-align: center;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-      transform-style: preserve-3d;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      opacity: 0;
-      transform: translateY(30px) scale(0.95);
-      animation: fadeInUp 0.6s forwards;
-    }
-
-    .app-card:nth-child(1) { animation-delay: 0.1s; }
-    .app-card:nth-child(2) { animation-delay: 0.2s; }
-    .app-card:nth-child(3) { animation-delay: 0.3s; }
-    .app-card:nth-child(4) { animation-delay: 0.4s; }
-
-    .app-card:hover {
-      transform: rotateY(5deg) rotateX(3deg) scale(1.02);
-      box-shadow: 0 20px 30px rgba(0,0,0,0.2);
-    }
-
-    .app-card h3 {
       font-size: 20px;
-      margin-bottom: 10px;
+      font-weight: bold;
+      user-select: none;
     }
 
-    .app-card p {
-      font-size: 14px;
-      margin-bottom: 15px;
-      color: #666;
+    .circle-countdown {
+      margin-top: 20px;
+      width: 100px;
+      height: 100px;
+      position: relative;
     }
 
-    .app-card a {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 10px 20px;
-      background-color: #2ecc71;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      transition: background-color 0.3s;
+    /* Vòng tròn đếm ngược bằng SVG */
+    svg {
+      transform: rotate(-90deg);
+      width: 100px;
+      height: 100px;
     }
 
-    .app-card a:hover {
-      background-color: #27ae60;
+    circle {
+      fill: none;
+      stroke-width: 10;
+      stroke-linecap: round;
     }
 
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
+    .bg {
+      stroke: rgba(255, 255, 255, 0.2);
+    }
+
+    .progress {
+      stroke: #27ae60;
+      stroke-dasharray: 283;
+      stroke-dashoffset: 0;
+      transition: stroke-dashoffset 1s linear;
+    }
+
+    .count-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 28px;
     }
   </style>
 </head>
@@ -96,34 +68,73 @@
 <header>📱 Kho Ứng Dụng</header>
 
 <section class="app-grid">
-  <!-- Ứng dụng 1 -->
+  <!-- Ứng dụng ví dụ -->
   <div class="app-card">
     <h3>Regedit V1</h3>
-    <p>Chức Năng:Tăng nhạy,Aim Fov,.....</p>
-    <a href="https://www.mediafire.com/file/9vdxwukqjytifsv/Super_Config%E2%9A%A1%EF%B8%8F.p12/file" target="_blank">Tải về</a>
+    <p>Chức Năng: Tăng nhạy, Aim Fov, ..... </p>
+    <a href="https://www.mediafire.com/file/9vdxwukqjytifsv/Super_Config%E2%9A%A1%EF%B8%8F.p12/file" class="download-link">Tải về</a>
   </div>
-
-  <!-- Ứng dụng 2 -->
-  <div class="app-card">
-    <h3>Ứng dụng 2</h3>
-    <p>Đạt.</p>
-    <a href="https://www.mediafire.com/file/9vdxwukqjytifsv/Super_Config%E2%9A%A1%EF%B8%8F.p12/file" target="_blank">Tải về</a>
-  </div>
-
-  <!-- Ứng dụng 3 -->
-  <div class="app-card">
-    <h3>Ứng dụng 3</h3>
-    <p>demo</p>
-    <a href="https://www.mediafire.com/file/9vdxwukqjytifsv/Super_Config%E2%9A%A1%EF%B8%8F.p12/file" target="_blank">Tải về</a>
-  </div>
-
-  <!-- Ứng dụng 4 -->
-  <div class="app-card">
-    <h3>hack ff</h3>
-    <p>500k</p>
-    <a href="https://www.mediafire.com/file/9vdxwukqjytifsv/Super_Config%E2%9A%A1%EF%B8%8F.p12/file" target="_blank">Tải về</a>
-  </div>
+  <!-- Thêm các app khác tương tự -->
 </section>
+
+<!-- Popup chờ tải -->
+<div id="wait-popup">
+  <div>Vui lòng chờ trong <span id="countdown">10</span> giây...</div>
+  <div class="circle-countdown">
+    <svg>
+      <circle class="bg" cx="50" cy="50" r="45"></circle>
+      <circle class="progress" cx="50" cy="50" r="45"></circle>
+    </svg>
+    <div class="count-text" id="count-text">10</div>
+  </div>
+</div>
+
+<script>
+  const waitPopup = document.getElementById('wait-popup');
+  const countdownText = document.getElementById('countdown');
+  const countText = document.getElementById('count-text');
+  const progressCircle = document.querySelector('.progress');
+  const circumference = 2 * Math.PI * 45; // r = 45
+
+  let countdownInterval;
+
+  function setProgress(percent) {
+    const offset = circumference - (percent / 100) * circumference;
+    progressCircle.style.strokeDashoffset = offset;
+  }
+
+  // Khởi tạo vòng tròn
+  progressCircle.style.strokeDasharray = circumference;
+  setProgress(0);
+
+  document.querySelectorAll('.download-link').forEach(link => {
+    link.addEventListener('click', function(event) {
+      event.preventDefault(); // Ngăn tải về ngay lập tức
+
+      let seconds = 10;
+      waitPopup.style.display = 'flex';
+      countdownText.textContent = seconds;
+      countText.textContent = seconds;
+      setProgress(0);
+
+      countdownInterval = setInterval(() => {
+        seconds--;
+        countdownText.textContent = seconds;
+        countText.textContent = seconds;
+
+        const percent = ((10 - seconds) / 10) * 100;
+        setProgress(percent);
+
+        if (seconds <= 0) {
+          clearInterval(countdownInterval);
+          waitPopup.style.display = 'none';
+          // Chuyển hướng đến link tải
+          window.location.href = link.href;
+        }
+      }, 1000);
+    });
+  });
+</script>
 
 </body>
 </html>
