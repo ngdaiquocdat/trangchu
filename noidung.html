@@ -5,139 +5,287 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kho Ứng Dụng</title>
   <style>
-    <style>
-  .star {
-    position: fixed;
-    top: -10px;
-    width: 2px;
-    height: 80px;
-    background: white;
-    opacity: 0.8;
-    transform: rotate(45deg);
-    animation: fallStar linear forwards;
-  }
-
-  @keyframes fallStar {
-    to {
-      transform: translateY(100vh) translateX(50px) rotate(45deg);
-      opacity: 0;
+    * {
+      box-sizing: border-box;
+      margin: 0; padding: 0;
+      font-family: 'Segoe UI', sans-serif;
     }
-  }
-</style>
-
-<script>
-  function createFallingStar() {
-    const star = document.createElement("div");
-    star.classList.add("star");
-    star.style.left = Math.random() * window.innerWidth + "px";
-    star.style.animationDuration = (1 + Math.random() * 2) + "s";
-    document.body.appendChild(star);
-
-    setTimeout(() => star.remove(), 3000);
-  }
-
-  setInterval(createFallingStar, 300);
-</script>
 
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom right, #ecf0f1, #d0e0f0);
-      color: #333;
-      margin: 0;
-      padding: 0;
+      background: linear-gradient(to bottom right, #0a1a2b, #112d4e);
+      color: #eee;
+      min-height: 100vh;
+      padding: 40px 20px;
+      overflow-x: hidden;
+      position: relative;
     }
 
     header {
-      background-color: #3498db;
-      color: white;
       text-align: center;
-      padding: 20px;
-      font-size: 26px;
+      font-size: 28px;
+      margin-bottom: 30px;
       font-weight: bold;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      color: #90caf9;
+      text-shadow: 0 0 10px #5c9ef8;
+      user-select: none;
     }
 
     .app-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 25px;
-      padding: 40px 20px;
+      z-index: 10;
+      position: relative;
     }
 
     .app-card {
-      background-color: white;
+      background-color: rgba(255, 255, 255, 0.1);
       border-radius: 15px;
       padding: 30px 20px;
       text-align: center;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: default;
+      backdrop-filter: blur(8px);
+      color: #ddd;
+      user-select: none;
     }
 
     .app-card:hover {
-      transform: rotateY(5deg) rotateX(3deg) scale(1.02);
-      box-shadow: 0 20px 30px rgba(0,0,0,0.2);
+      transform: rotateY(5deg) rotateX(3deg) scale(1.05);
+      box-shadow: 0 20px 30px rgba(255, 255, 255, 0.4);
     }
 
     .app-card h3 {
-      font-size: 20px;
+      font-size: 22px;
       margin-bottom: 10px;
+      text-shadow: 0 0 5px #90caf9;
     }
 
     .app-card p {
       font-size: 14px;
       margin-bottom: 15px;
-      color: #666;
+      color: #ccc;
     }
 
-    .app-card a {
-      display: inline-block;
-      margin-top: 10px;
+    .app-card button, .app-card a {
       padding: 10px 20px;
-      background-color: #2ecc71;
-      color: white;
-      text-decoration: none;
+      background-color: #42a5f5;
+      border: none;
       border-radius: 8px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
       transition: background-color 0.3s;
+      user-select: none;
     }
 
-    .app-card a:hover {
-      background-color: #27ae60;
+    .app-card button:hover, .app-card a:hover {
+      background-color: #1e88e5;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(5px);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: #14213d;
+      padding: 30px 20px;
+      border-radius: 12px;
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+      color: #90caf9;
+      animation: fadeIn 0.3s ease;
+      position: relative;
+      box-shadow: 0 0 15px #2196f3;
+      user-select: none;
+    }
+
+    .modal-content input {
+      padding: 12px;
+      width: 100%;
+      margin-top: 15px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+      outline: none;
+      background-color: #1b263b;
+      color: #eee;
+      box-shadow: inset 0 0 5px #2196f3;
+    }
+
+    .modal-content button {
+      margin-top: 15px;
+      padding: 12px 20px;
+      background-color: #2196f3;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      user-select: none;
+    }
+
+    .modal-content button:hover {
+      background-color: #0d47a1;
+    }
+
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 28px;
+      cursor: pointer;
+      color: #90caf9;
+      user-select: none;
+    }
+
+    #errorMsg {
+      color: #ff6b6b;
+      margin-top: 10px;
+      min-height: 20px;
+      font-weight: 600;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Star falling */
+    .star {
+      position: fixed;
+      top: -10px;
+      background: #fff;
+      border-radius: 50%;
+      opacity: 0.8;
+      pointer-events: none;
+      animation-name: fallStar;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      will-change: transform;
+      filter: drop-shadow(0 0 2px #90caf9);
+      user-select: none;
+      z-index: 1;
+    }
+
+    @keyframes fallStar {
+      to {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 <body>
 
-<header>📱 Kho Ứng Dụng</header>
+  <header>📱 Kho Ứng Dụng</header>
 
-<section class="app-grid">
-  <div class="app-card">
-    <h3>Regedit V1</h3>
-    <p>Chức Năng: Tăng nhạy, Aim Fov, ..... </p>
-    <a href="#" onclick="downloadWithPassword()">Tải về</a>
+  <section class="app-grid">
+    <!-- Ứng dụng 1: Regedit V1 -->
+    <div class="app-card">
+      <h3>Regedit V1</h3>
+      <p>Chức Năng: Tăng nhạy, Aim Fov, ...</p>
+      <button onclick="openModal()">Tải về</button>
+    </div>
+
+    <!-- Ứng dụng 2 -->
+    <div class="app-card">
+      <h3>Ứng dụng 2</h3>
+      <p>Đạt.</p>
+      <a href="https://www.mediafire.com/file/9vdxwukqjytifsv/Super_Config%E2%9A%A1%EF%B8%8F.p12/file" target="_blank" rel="noopener noreferrer">Tải về</a>
+    </div>
+
+    <!-- Ứng dụng 3 -->
+    <div class="app-card">
+      <h3>Ứng dụng 3</h3>
+      <p>demo</p>
+      <a href="https://www.mediafire.com/file/9vdxwukqjytifsv/Super_Config%E2%9A%A1%EF%B8%8F.p12/file" target="_blank" rel="noopener noreferrer">Tải về</a>
+    </div>
+
+    <!-- Ứng dụng 4 -->
+    <div class="app-card">
+      <h3>hack ff</h3>
+      <p>500k</p>
+      <a href="https://www.mediafire.com/file/9vdxwukqjytifsv/Super_Config%E2%9A%A1%EF%B8%8F.p12/file" target="_blank" rel="noopener noreferrer">Tải về</a>
+    </div>
+  </section>
+
+  <!-- Modal mật khẩu -->
+  <div id="passwordModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h3>Nhập mật khẩu để tải</h3>
+      <input type="password" id="downloadPassword" placeholder="Nhập mật khẩu..." autocomplete="off" />
+      <button onclick="checkDownloadPassword()">Xác nhận</button>
+      <p id="errorMsg"></p>
+    </div>
   </div>
 
-  <div class="app-card">
-    <h3>Ứng dụng 2</h3>
-    <p>Đạt.</p>
-    <a href="https://example.com/download2" target="_blank" rel="noopener noreferrer">Tải về</a>
-  </div>
-</section>
+  <script>
+    const modal = document.getElementById("passwordModal");
+    const passwordInput = document.getElementById("downloadPassword");
+    const errorMsg = document.getElementById("errorMsg");
 
-<script>
-  function downloadWithPassword() {
-    const password = prompt("🔒 Nhập mật khẩu để tải:");
-    const correctPassword = "xqKZmdPqre"; // Bạn có thể thay đổi mật khẩu tại đây
-
-    if (password === correctPassword) {
-      window.open("https://www.mediafire.com/file/9vdxwukqjytifsv/Super_Config%E2%9A%A1%EF%B8%8F.p12/file", "_blank");
-    } else if (password === null) {
-      // Người dùng bấm Cancel
-      alert("Hủy bỏ tải về.");
-    } else {
-      alert("❌ Mật khẩu sai. Vui lòng nạp tiền để mua mật khẩu!!!.");
+    function openModal() {
+      modal.style.display = "flex";
+      passwordInput.value = "";
+      errorMsg.textContent = "";
+      passwordInput.focus();
     }
-  }
-</script>
 
+    function closeModal() {
+      modal.style.display = "none";
+    }
+
+    function checkDownloadPassword() {
+      const password = passwordInput.value.trim();
+      if (password === "0001") {
+        window.location.href = "https://www.mediafire.com/file/9vdxwukqjytifsv/Super_Config%E2%9A%A1%EF%B8%8F.p12/file";
+      } else {
+        errorMsg.textContent = "Sai mật khẩu!";
+      }
+    }
+
+    // Đóng modal khi bấm ngoài modal-content
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        closeModal();
+      }
+    }
+
+    // Hiệu ứng sao rơi
+    function createStar() {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      const size = Math.random() * 3 + 1; // 1px - 4px
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      star.style.left = Math.random() * window.innerWidth + 'px';
+      star.style.animationDuration = (5 + Math.random() * 5) + 's';
+      star.style.animationDelay = (Math.random() * 10) + 's';
+      document.body.appendChild(star);
+
+      // Xóa sao sau animation kết thúc
+      star.addEventListener('animationend', () => {
+        star.remove();
+      });
+    }
+
+    // Tạo sao rơi liên tục
+    setInterval(createStar, 300);
+  </script>
 </body>
 </html>
