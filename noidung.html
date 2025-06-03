@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Nạp Thẻ - Kho Ứng Dụng</title>
+  <title>Kho Ứng Dụng</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -11,30 +11,80 @@
       margin: 0;
       padding: 0;
       color: #333;
+      overflow-x: hidden;
     }
 
     header {
       background-color: #3498db;
       color: white;
-      padding: 20px;
       text-align: center;
+      padding: 20px;
       font-size: 26px;
       font-weight: bold;
       box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     }
 
+    .app-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 25px;
+      padding: 40px 20px;
+    }
+
+    .app-card {
+      background-color: white;
+      border-radius: 15px;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .app-card:hover {
+      transform: rotateY(5deg) rotateX(3deg) scale(1.02);
+      box-shadow: 0 20px 30px rgba(0,0,0,0.2);
+    }
+
+    .app-card h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .app-card p {
+      font-size: 14px;
+      margin-bottom: 15px;
+      color: #666;
+    }
+
+    .app-card a, .app-card button {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #2ecc71;
+      color: white;
+      text-decoration: none;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .app-card a:hover, .app-card button:hover {
+      background-color: #27ae60;
+    }
+
     .container {
       max-width: 500px;
-      margin: 50px auto;
+      margin: 40px auto;
       background: white;
       padding: 30px;
       border-radius: 15px;
       box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     }
 
-    h2 {
+    .container h2 {
       text-align: center;
-      margin-bottom: 20px;
     }
 
     input, select, button {
@@ -46,31 +96,63 @@
       font-size: 16px;
     }
 
-    button {
-      background-color: #2ecc71;
-      color: white;
-      border: none;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    button:hover {
-      background-color: #27ae60;
-    }
-
     .status {
       text-align: center;
       margin-top: 15px;
       font-weight: bold;
     }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    /* Tuyết */
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      color: #fff;
+      user-select: none;
+      pointer-events: none;
+      font-size: 1em;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) translateX(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) translateX(30px);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body>
 
-<header>💳 Nạp Thẻ - Kho Ứng Dụng</header>
+<header>📱 Kho Ứng Dụng</header>
 
+<section class="app-grid">
+  <div class="app-card">
+    <h3>Regedit V1</h3>
+    <p>Chức năng: Tăng nhạy, Aim Fov, ...</p>
+    <button onclick="taiRegedit()">Tải về</button>
+  </div>
+
+  <div class="app-card">
+    <h3>Ứng dụng 2</h3>
+    <p>Đạt.</p>
+    <a href="https://example.com/download2" target="_blank">Tải về</a>
+  </div>
+</section>
+
+<!-- Form Nạp Thẻ -->
 <div class="container">
-  <h2>Thông Tin Nạp Thẻ</h2>
+  <h2>💳 Nạp Thẻ</h2>
   <form id="napthe-form">
     <select name="loai" required>
       <option value="">-- Chọn loại thẻ --</option>
@@ -86,32 +168,63 @@
   <div class="status" id="thongbao"></div>
 </div>
 
+<!-- BIO -->
+<footer>
+  © 2025 Kho Ứng Dụng - Phát triển bởi Bạn
+</footer>
+
+<!-- Script tải Regedit -->
 <script>
-  const form = document.getElementById('napthe-form');
-  const thongbao = document.getElementById('thongbao');
+  function taiRegedit() {
+    const password = prompt("🔐 Nhập mật khẩu để tải:");
+    if (password && password.length === 10) {
+      window.open("https://www.mediafire.com/file/9vdxwukqjytifsv/Super_Config%E2%9A%A1%EF%B8%8F.p12/file", "_blank");
+    } else {
+      alert("❌ Sai mật khẩu hoặc mật khẩu không đúng 10 ký tự!");
+    }
+  }
+</script>
 
-  form.addEventListener('submit', async (e) => {
+<!-- Script Gửi Nạp Thẻ -->
+<script>
+  document.getElementById("napthe-form").addEventListener("submit", async function(e) {
     e.preventDefault();
-
-    const formData = new FormData(form);
+    const formData = new FormData(this);
     const data = Object.fromEntries(formData.entries());
+    const thongbao = document.getElementById("thongbao");
 
     try {
       const res = await fetch("https://script.google.com/macros/s/AKfycbz2CuuS2m8-Z2LNAgg1ivx8n4AOednxgWA-TXd3iqTNxSzF3GkZ9-NvNQNqFkmAvaZKWw/exec", {
         method: "POST",
-        body: JSON.stringify(data),
-        headers: { "Content-Type": "application/json" }
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
       });
 
       const result = await res.text();
-      thongbao.style.color = 'green';
+      thongbao.style.color = "green";
       thongbao.textContent = result;
-      form.reset();
+      this.reset();
     } catch (err) {
-      thongbao.style.color = 'red';
-      thongbao.textContent = '❌ Có lỗi xảy ra. Hãy thử lại.';
+      thongbao.style.color = "red";
+      thongbao.textContent = "❌ Lỗi khi gửi dữ liệu.";
     }
   });
+</script>
+
+<!-- Hiệu ứng tuyết nhẹ -->
+<script>
+  function createSnowflake() {
+    const snowflake = document.createElement("div");
+    snowflake.className = "snowflake";
+    snowflake.textContent = "❄";
+    snowflake.style.left = Math.random() * 100 + "vw";
+    snowflake.style.animationDuration = (5 + Math.random() * 5) + "s";
+    snowflake.style.opacity = Math.random();
+    snowflake.style.fontSize = Math.random() * 10 + 10 + "px";
+    document.body.appendChild(snowflake);
+    setTimeout(() => snowflake.remove(), 10000);
+  }
+  setInterval(createSnowflake, 700); // tuyết nhẹ
 </script>
 
 </body>
