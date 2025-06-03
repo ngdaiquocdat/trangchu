@@ -87,11 +87,6 @@
       box-shadow: 0 12px 25px rgba(0,0,0,0.15);
     }
 
-    .card img {
-      width: 64px;
-      margin-bottom: 15px;
-    }
-
     .card h3 {
       font-size: 20px;
       margin-bottom: 10px;
@@ -123,7 +118,7 @@
     .snowflake {
       position: fixed;
       top: -10px;
-      color: pinkpink;
+      color: white;
       font-size: 1rem;
       animation: fall linear infinite;
       opacity: 0.5;
@@ -132,12 +127,8 @@
     }
 
     @keyframes fall {
-      0% {
-        transform: translateY(-10px);
-      }
-      100% {
-        transform: translateY(100vh);
-      }
+      0% { transform: translateY(-10px); }
+      100% { transform: translateY(100vh); }
     }
 
     /* Modal */
@@ -189,14 +180,45 @@
       color: #333;
     }
 
-    @media (max-width: 600px) {
-      nav {
-        gap: 8px;
-      }
+    footer {
+      background: #ecf0f1;
+      padding: 40px 20px;
+      margin-top: 50px;
+      color: #333;
+    }
 
-      nav a {
-        padding: 8px 12px;
-      }
+    footer h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    footer p {
+      font-size: 14px;
+      color: #555;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    footer a {
+      margin: 0 10px;
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    footer .footer-links {
+      margin-top: 20px;
+    }
+
+    footer .copyright {
+      margin-top: 30px;
+      font-size: 13px;
+      color: #888;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      nav { gap: 8px; }
+      nav a { padding: 8px 12px; }
     }
   </style>
 </head>
@@ -207,7 +229,7 @@
 <nav>
   <a href="#">Trang chủ</a>
   <a href="#">Free Fire</a>
-  <a href="#">Minecraft</a>
+  <a href="#">Liên Quân</a>
   <a href="#">Random Acc</a>
   <a href="#">Tool / Regedit</a>
 </nav>
@@ -216,17 +238,15 @@
   <div class="grid">
 
     <div class="card">
-      <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="Regedit Icon">
       <h3>Regedit V1</h3>
       <p>Tăng nhạy, Aim Fov, giảm lag, cấu hình tối ưu...</p>
       <a href="#" onclick="downloadWithPassword()">Tải về</a>
     </div>
 
     <div class="card">
-      <img src="https://cdn-icons-png.flaticon.com/512/190/190406.png" alt="App Icon">
       <h3>Ứng dụng 2</h3>
       <p>Phiên bản tối ưu cho Free Fire | Mượt + FPS cao.</p>
-      <a href="https://play-lh.googleusercontent.com/kCSBc7ddsYfc-5lGsMtCKiGTZiA26gNf2BnBl41L-ob1d_R4X0XYB1mIEa2hDb07f80=w256" target="_blank">Tải về</a>
+      <a href="https://example.com/download2" target="_blank">Tải về</a>
     </div>
 
   </div>
@@ -244,7 +264,7 @@
     document.body.appendChild(snowflake);
     setTimeout(() => snowflake.remove(), 10000);
   }
-  setInterval(createSnowflake, 700);
+  setInterval(createSnowflake, 1000);
 </script>
 
 <!-- Password Modal -->
@@ -271,7 +291,7 @@
 
   function checkPassword() {
     const input = document.getElementById('passwordInput').value;
-    const correct = "xqKZmdPqre";
+    const correct = "xqKZmdPqre"; // mật khẩu 10 chữ cái ngẫu nhiên
     if (input === correct) {
       window.open("https://www.mediafire.com/file/9vdxwukqjytifsv/Super_Config%E2%9A%A1%EF%B8%8F.p12/file", "_blank");
       closeModal();
@@ -280,6 +300,22 @@
     }
   }
 </script>
+
+<!-- Footer / Bio -->
+<footer>
+  <div style="max-width: 900px; margin: auto; text-align: center;">
+    <h3>💻 Admin | Dev Tools</h3>
+    <p>
+      Trang chia sẻ công cụ hỗ trợ chơi game, tối ưu thiết bị và tiện ích mobile. Mọi ứng dụng được chọn lọc kỹ càng nhằm mang đến trải nghiệm mượt mà, an toàn và dễ sử dụng.
+    </p>
+    <div class="footer-links">
+      <a href="https://facebook.com" target="_blank">Facebook</a>
+      <a href="https://zalo.me" target="_blank">Zalo</a>
+      <a href="mailto:admin@example.com">Email</a>
+    </div>
+  </div>
+  <p class="copyright">© 2025 Kho Ứng Dụng. All rights reserved.</p>
+</footer>
 
 </body>
 </html>
