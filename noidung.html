@@ -139,13 +139,13 @@
 <section class="app-grid">
   <div class="app-card">
     <h3>Regedit V1</h3>
-    <p>Chức năng: Tăng nhạy, Aim Fov, ...</p>
+    <p>Chức năng: Tăng nhạy, Aim Fov,...</p>
     <button onclick="taiRegedit()">Tải về</button>
   </div>
 
   <div class="app-card">
     <h3>Ứng dụng 2</h3>
-    <p>Đạt.</p>
+    <p>Phần mềm tiện ích khác.</p>
     <a href="https://example.com/download2" target="_blank">Tải về</a>
   </div>
 </section>
@@ -168,7 +168,7 @@
   <div class="status" id="thongbao"></div>
 </div>
 
-<!-- BIO -->
+<!-- Footer -->
 <footer>
   © 2025 Kho Ứng Dụng - Phát triển bởi Bạn
 </footer>
@@ -192,6 +192,16 @@
     const formData = new FormData(this);
     const data = Object.fromEntries(formData.entries());
     const thongbao = document.getElementById("thongbao");
+
+    // Kiểm tra đầu vào cơ bản
+    if (isNaN(data.menhgia) || data.mathe.length < 10 || data.seri.length < 10) {
+      thongbao.style.color = "red";
+      thongbao.textContent = "❌ Dữ liệu không hợp lệ!";
+      return;
+    }
+
+    thongbao.style.color = "blue";
+    thongbao.textContent = "⏳ Đang xử lý...";
 
     try {
       const res = await fetch("https://script.google.com/macros/s/AKfycbz2CuuS2m8-Z2LNAgg1ivx8n4AOednxgWA-TXd3iqTNxSzF3GkZ9-NvNQNqFkmAvaZKWw/exec", {
@@ -224,7 +234,7 @@
     document.body.appendChild(snowflake);
     setTimeout(() => snowflake.remove(), 10000);
   }
-  setInterval(createSnowflake, 700); // tuyết nhẹ
+  setInterval(createSnowflake, 1000); // Tuyết nhẹ hơn
 </script>
 
 </body>
