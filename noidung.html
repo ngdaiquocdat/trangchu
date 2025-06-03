@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kho Ứng Dụng Hiện Đại</title>
+  <title>Kho Ứng Dụng - Shop Acc</title>
   <style>
     :root {
       --primary: #3498db;
@@ -33,9 +33,6 @@
       padding: 25px 10px;
       font-size: 28px;
       font-weight: bold;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
@@ -67,254 +64,102 @@
       padding: 30px 20px;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 25px;
-    }
-
-    .card {
+    .section {
       background: var(--card-bg);
-      border-radius: 20px;
       padding: 20px;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.05);
-      text-align: center;
-      transition: transform 0.2s ease, box-shadow 0.3s;
+      margin-bottom: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     }
 
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 25px rgba(0,0,0,0.15);
-    }
-
-    .card h3 {
+    .section h2 {
       font-size: 20px;
-      margin-bottom: 10px;
-      color: #222;
-    }
-
-    .card p {
-      font-size: 14px;
-      color: #666;
       margin-bottom: 15px;
     }
 
-    .card a {
-      display: inline-block;
-      padding: 10px 20px;
+    input, select, button {
+      padding: 10px;
+      margin: 8px 0;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    button {
       background: var(--accent);
       color: white;
-      text-decoration: none;
-      border-radius: 12px;
-      font-weight: 500;
-      transition: background 0.3s;
-    }
-
-    .card a:hover {
-      background: #27ae60;
-    }
-
-    /* Snow effect */
-    .snowflake {
-      position: fixed;
-      top: -10px;
-      color: white;
-      font-size: 1rem;
-      animation: fall linear infinite;
-      opacity: 0.5;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    @keyframes fall {
-      0% { transform: translateY(-10px); }
-      100% { transform: translateY(100vh); }
-    }
-
-    /* Modal */
-    #passwordModal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-    }
-
-    .modal-content {
-      background: white;
-      padding: 25px 20px;
-      border-radius: 12px;
-      width: 300px;
-      text-align: center;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    .modal-content input {
-      width: 100%;
-      margin-top: 15px;
-      padding: 10px;
-      font-size: 16px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-
-    .modal-content button {
-      padding: 8px 20px;
-      margin: 10px 5px 0;
       border: none;
-      border-radius: 8px;
-      font-weight: bold;
       cursor: pointer;
     }
 
-    .confirm-btn {
-      background: var(--accent);
-      color: white;
+    button:hover {
+      background: #27ae60;
     }
 
-    .cancel-btn {
-      background: #ccc;
-      color: #333;
-    }
-
-    footer {
+    .footer {
       background: #ecf0f1;
       padding: 40px 20px;
-      margin-top: 50px;
-      color: #333;
-    }
-
-    footer h3 {
-      font-size: 22px;
-      margin-bottom: 10px;
-    }
-
-    footer p {
-      font-size: 14px;
-      color: #555;
-      max-width: 700px;
-      margin: auto;
-    }
-
-    footer a {
-      margin: 0 10px;
-      color: #3498db;
-      text-decoration: none;
-    }
-
-    footer .footer-links {
-      margin-top: 20px;
-    }
-
-    footer .copyright {
-      margin-top: 30px;
-      font-size: 13px;
-      color: #888;
       text-align: center;
-    }
-
-    @media (max-width: 600px) {
-      nav { gap: 8px; }
-      nav a { padding: 8px 12px; }
+      color: #333;
+      margin-top: 50px;
     }
   </style>
 </head>
 <body>
 
-<header>📦 Kho Ứng Dụng</header>
+<header>📦 Kho Ứng Dụng - Shop Acc Game</header>
 
 <nav>
   <a href="#">Trang chủ</a>
-  <a href="#">Free Fire</a>
-  <a href="#">Liên Quân</a>
-  <a href="#">Random Acc</a>
+  <a href="#">Shop Acc</a>
   <a href="#">Tool / Regedit</a>
+  <a href="#">Nạp Thẻ</a>
+  <a href="#">Đăng Ký</a>
+  <a href="#">Đăng Nhập</a>
 </nav>
 
 <div class="container">
-  <div class="grid">
+  <!-- Đăng ký -->
+  <div class="section">
+    <h2>🔐 Đăng Ký Tài Khoản</h2>
+    <input type="text" placeholder="Tên đăng nhập">
+    <input type="password" placeholder="Mật khẩu">
+    <input type="password" placeholder="Nhập lại mật khẩu">
+    <button>Đăng ký</button>
+  </div>
 
-    <div class="card">
-      <h3>Regedit V1</h3>
-      <p>Tăng nhạy, Aim Fov, giảm lag, cấu hình tối ưu...</p>
-      <a href="#" onclick="downloadWithPassword()">Tải về</a>
-    </div>
+  <!-- Đăng nhập -->
+  <div class="section">
+    <h2>🔓 Đăng Nhập</h2>
+    <input type="text" placeholder="Tên đăng nhập">
+    <input type="password" placeholder="Mật khẩu">
+    <button>Đăng nhập</button>
+  </div>
 
-    <div class="card">
-      <h3>Ứng dụng 2</h3>
-      <p>Phiên bản tối ưu cho Free Fire | Mượt + FPS cao.</p>
-      <a href="https://example.com/download2" target="_blank">Tải về</a>
-    </div>
-
+  <!-- Nạp thẻ -->
+  <div class="section">
+    <h2>💳 Nạp Thẻ Cào</h2>
+    <select>
+      <option>Chọn loại thẻ</option>
+      <option>Viettel</option>
+      <option>Vinaphone</option>
+      <option>Mobifone</option>
+    </select>
+    <input type="text" placeholder="Mệnh giá (VD: 100000)">
+    <input type="text" placeholder="Mã thẻ">
+    <input type="text" placeholder="Số seri">
+    <button>Nạp Thẻ</button>
   </div>
 </div>
 
-<!-- Snow Script -->
-<script>
-  function createSnowflake() {
-    const snowflake = document.createElement("div");
-    snowflake.classList.add("snowflake");
-    snowflake.textContent = "❄";
-    snowflake.style.left = Math.random() * window.innerWidth + "px";
-    snowflake.style.animationDuration = (5 + Math.random() * 5) + "s";
-    snowflake.style.fontSize = (10 + Math.random() * 12) + "px";
-    document.body.appendChild(snowflake);
-    setTimeout(() => snowflake.remove(), 10000);
-  }
-  setInterval(createSnowflake, 1000);
-</script>
-
-<!-- Password Modal -->
-<div id="passwordModal">
-  <div class="modal-content">
-    <h3>🔐 Nhập mật khẩu</h3>
-    <input id="passwordInput" type="password" placeholder="Mật khẩu..." />
-    <div>
-      <button class="confirm-btn" onclick="checkPassword()">Xác nhận</button>
-      <button class="cancel-btn" onclick="closeModal()">Hủy</button>
-    </div>
+<footer class="footer">
+  <h3>💻 Admin | Dev Tools</h3>
+  <p>Trang chia sẻ công cụ chơi game, shop acc, tối ưu thiết bị và tiện ích mobile.</p>
+  <div style="margin-top: 20px;">
+    <a href="#">Facebook</a> | <a href="#">Zalo</a> | <a href="mailto:admin@example.com">Email</a>
   </div>
-</div>
-
-<script>
-  function downloadWithPassword() {
-    document.getElementById('passwordModal').style.display = 'flex';
-  }
-
-  function closeModal() {
-    document.getElementById('passwordInput').value = '';
-    document.getElementById('passwordModal').style.display = 'none';
-  }
-
-  function checkPassword() {
-    const input = document.getElementById('passwordInput').value;
-    const correct = "xqKZmdPqre"; // mật khẩu 10 chữ cái ngẫu nhiên
-    if (input === correct) {
-      window.open("https://www.mediafire.com/file/9vdxwukqjytifsv/Super_Config%E2%9A%A1%EF%B8%8F.p12/file", "_blank");
-      closeModal();
-    } else {
-      alert("❌ Sai mật khẩu.");
-    }
-  }
-</script>
-
-<!-- Footer / Bio -->
-<footer>
-  <div style="max-width: 900px; margin: auto; text-align: center;">
-    <h3>💻 Admin | Dev Tools</h3>
-    <p>
-      Trang chia sẻ công cụ hỗ trợ chơi game, tối ưu thiết bị và tiện ích mobile. Mọi ứng dụng được chọn lọc kỹ càng nhằm mang đến trải nghiệm mượt mà, an toàn và dễ sử dụng.
-    </p>
-    <div class="footer-links">
-      <a href="https://facebook.com" target="_blank">Facebook</a>
-      <a href="https://zalo.me" target="_blank">Zalo</a>
-      <a href="mailto:admin@example.com">Email</a>
-    </div>
-  </div>
-  <p class="copyright">© 2025 Kho Ứng Dụng. All rights reserved.</p>
+  <p style="margin-top: 20px; font-size: 13px; color: #888;">© 2025 Kho Ứng Dụng. All rights reserved.</p>
 </footer>
 
 </body>
