@@ -200,7 +200,7 @@
 <!-- Popup -->
 <div id="popup">
   <div id="popup-content">
-    <h3>🔐 Nhập Key,...(mậy khẩu)</h3>
+    <h3>🔐 Nhập Key,...(mật khẩu)</h3>
     <input type="text" id="passwordInput" placeholder="10 ký tự..." />
     <button onclick="xacNhanMatKhau()">Xác nhận</button>
     <button onclick="hidePopup()" style="background:#e74c3c; margin-top:10px;">Đóng</button>
@@ -213,7 +213,7 @@
   function showPopup() {
     document.getElementById("popup").style.display = "flex";
     document.getElementById("popup-error").textContent = "";
-    document.getElementById("passwordInput").value = "";
+    document.getElementById("passwordInput").value = "LuOnGdIBaThOaSiEmUpRuP";
   }
 
   function hidePopup() {
