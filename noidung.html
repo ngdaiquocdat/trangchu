@@ -1,239 +1,436 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kho Ứng Dụng</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom right, #ecf0f1, #d0e0f0);
-      margin: 0;
-      padding: 0;
-      scroll-behavior: smooth;
-    }
-    header {
-      background-color: #3498db;
-      color: white;
-      text-align: center;
-      padding: 20px;
-      font-size: 26px;
-      font-weight: bold;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    }
-    nav {
-      background: #2980b9;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      padding: 10px 0;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .app-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 25px;
-      padding: 40px 20px;
-    }
-    .app-card {
-      background-color: white;
-      border-radius: 15px;
-      padding: 30px 20px;
-      text-align: center;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .app-card:hover {
-      transform: rotateY(5deg) rotateX(3deg) scale(1.02);
-      box-shadow: 0 20px 30px rgba(0,0,0,0.2);
-    }
-    .app-card button, .app-card a {
-      margin-top: 10px;
-      padding: 10px 20px;
-      background-color: #2ecc71;
-      color: white;
-      text-decoration: none;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    .app-card button:hover, .app-card a:hover {
-      background-color: #27ae60;
-    }
-    .popup {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5);
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
-    .popup-content {
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      text-align: center;
-      max-width: 300px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-    .container {
-      padding: 40px 20px;
-      text-align: center;
-    }
-    textarea {
-      width: 80%;
-      max-width: 600px;
-      padding: 10px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      margin-bottom: 10px;
-      font-size: 16px;
-    }
-    .status {
-      margin-top: 10px;
-      font-weight: bold;
-    }
-    footer {
-      background: #3498db;
-      color: white;
-      text-align: center;
-      padding: 20px;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kho Ứng Dụng</title>
+<style>
+  /* --- Reset & body --- */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to bottom right, #ecf0f1, #d0e0f0);
+    margin: 0;
+    padding: 0;
+    color: #333;
+    overflow-x: hidden;
+  }
+
+  /* --- Header & Nav --- */
+  header {
+    background-color: #3498db;
+    color: white;
+    text-align: center;
+    padding: 20px 15px;
+    font-size: 28px;
+    font-weight: 700;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    user-select: none;
+  }
+  nav {
+    background-color: #2980b9;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 12px 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    user-select: none;
+  }
+  nav a {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+  }
+  nav a:hover,
+  nav a.active {
+    background-color: #27ae60;
+    color: white;
+  }
+
+  /* --- Container --- */
+  .container {
+    max-width: 960px;
+    margin: 30px auto 60px;
+    padding: 0 20px;
+  }
+
+  /* --- App Grid --- */
+  .app-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 24px;
+  }
+  .app-card {
+    background: white;
+    border-radius: 16px;
+    padding: 25px 20px 30px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: default;
+    user-select: none;
+  }
+  .app-card:hover {
+    transform: rotateY(5deg) rotateX(3deg) scale(1.04);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  }
+  .app-card h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #34495e;
+  }
+  .app-card p {
+    font-size: 15px;
+    margin-bottom: 18px;
+    color: #666;
+  }
+  .app-card a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 12px 26px;
+    background-color: #2ecc71;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    user-select: none;
+  }
+  .app-card a:hover {
+    background-color: #27ae60;
+  }
+
+  /* --- Popup mật khẩu --- */
+  #password-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 320px;
+    padding: 25px 30px;
+    background: white;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    border-radius: 14px;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    user-select: none;
+  }
+  #password-popup label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #2c3e50;
+  }
+  #password-popup input {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1.5px solid #ccc;
+    margin-bottom: 15px;
+    outline-offset: 2px;
+  }
+  #password-popup button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background-color: #3498db;
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  #password-popup button:hover {
+    background-color: #2980b9;
+  }
+  #password-popup .close-btn {
+    margin-top: 10px;
+    background: #e74c3c;
+  }
+  #password-popup .close-btn:hover {
+    background: #c0392b;
+  }
+
+  /* --- Overlay --- */
+  #overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 900;
+  }
+
+  /* --- Bio Section --- */
+  .bio {
+    background: white;
+    border-radius: 16px;
+    padding: 30px 25px;
+    margin-top: 50px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    user-select: none;
+  }
+  .bio h2 {
+    margin-top: 0;
+    color: #34495e;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  .bio p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* --- Comment Section --- */
+  .comment-section {
+    background: white;
+    border-radius: 16px;
+    padding: 30px 25px;
+    margin-top: 50px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    user-select: none;
+  }
+  .comment-section h2 {
+    color: #34495e;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  form#comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  form#comment-form textarea {
+    resize: vertical;
+    min-height: 100px;
+    padding: 14px 18px;
+    font-size: 16px;
+    border-radius: 12px;
+    border: 1.5px solid #ccc;
+    outline-offset: 2px;
+  }
+  form#comment-form button {
+    padding: 14px;
+    font-weight: 700;
+    font-size: 18px;
+    border-radius: 12px;
+    border: none;
+    background-color: #2ecc71;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  form#comment-form button:hover {
+    background-color: #27ae60;
+  }
+
+  /* --- Popup bình luận gửi thành công --- */
+  #comment-popup {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #2ecc71;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    z-index: 1100;
+  }
+
+  /* --- Snow effect (ít, mượt) --- */
+  .snowflake {
+    position: fixed;
+    top: -10px;
+    width: 6px;
+    height: 6px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    pointer-events: none;
+    animation-name: fall;
+    animation-timing-function: linear;
+  }
+  @keyframes fall {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(100vh); }
+  }
+</style>
 </head>
 <body>
 
 <header>📱 Kho Ứng Dụng</header>
 
 <nav>
-  <a href="#apps">🏠 Trang chủ</a>
-  <a href="#binhluan">💬 Bình luận</a>
-  <a href="#bio">ℹ️ Thông tin</a>
+  <a href="#apps" class="active">Ứng dụng</a>
+  <a href="#bio">Bio</a>
+  <a href="#comment">Bình luận</a>
 </nav>
 
-<section class="app-grid" id="apps">
-  <div class="app-card">
-    <h3>Regedit V1</h3>
-    <p>Chức năng: Tăng nhạy, Aim Fov, ...</p>
-    <button onclick="showPopup()">Tải về</button>
+<div class="container" id="apps">
+  <h2 style="text-align:center; margin-bottom:30px; color:#2c3e50;">Kho Ứng Dụng</h2>
+  <div class="app-grid">
+    <div class="app-card">
+      <h3>Regedit V1</h3>
+      <p>Chức Năng: Tăng nhạy, Aim Fov, ....</p>
+      <a href="#" id="btn-regedit">Tải về</a>
+    </div>
+    <div class="app-card">
+      <h3>Ứng dụng 2</h3>
+      <p>Đạt.</p>
+      <a href="https://example.com/download2" target="_blank" rel="noopener noreferrer">Tải về</a>
+    </div>
   </div>
-  <div class="app-card">
-    <h3>Ứng dụng 2</h3>
-    <p>Đạt.</p>
-    <a href="https://example.com/download2" target="_blank">Tải về</a>
-  </div>
-</section>
+</div>
 
-<!-- BÌNH LUẬN -->
-<div class="container" id="binhluan">
-  <h2>💬 Bình luận</h2>
+<!-- Popup mật khẩu -->
+<div id="overlay"></div>
+<div id="password-popup">
+  <label for="password-input">Nhập mật khẩu để tải Regedit V1:</label>
+  <input type="text" id="password-input" maxlength="10" placeholder="Nhập mật khẩu 10 ký tự" />
+  <button id="password-submit">Xác nhận</button>
+  <button id="password-close" class="close-btn">Hủy</button>
+</div>
+
+<div class="container bio" id="bio">
+  <h2>Bio</h2>
+  <p>
+    Xin chào! Đây là kho ứng dụng với phong cách thiết kế hiện đại, nhẹ nhàng, tối ưu trải nghiệm người dùng.
+    Tôi là người tạo ra trang này để chia sẻ các ứng dụng và nhận góp ý từ bạn.
+  </p>
+</div>
+
+<div class="container comment-section" id="comment">
+  <h2>Để lại bình luận</h2>
   <form id="comment-form">
-    <textarea name="comment" rows="4" placeholder="Nhập bình luận..." required></textarea><br>
+    <textarea id="comment" placeholder="Viết bình luận tại đây..." required></textarea>
     <button type="submit">Gửi bình luận</button>
   </form>
-  <div class="status" id="status-comment"></div>
 </div>
 
-<!-- FOOTER / BIO -->
-<footer id="bio">
-  © 2025 Kho Ứng Dụng - Phát triển bởi Bạn
-</footer>
+<div id="comment-popup">✅ Bình luận đã được gửi!</div>
 
-<!-- POPUP MẬT KHẨU -->
-<div class="popup" id="popup">
-  <div class="popup-content">
-    <p>Mật khẩu để tải về là:</p>
-    <h3 id="password"></h3>
-    <a id="downloadLink" href="https://www.mediafire.com/file/9vdxwukqjytifsv/Super_Config%E2%9A%A1%EF%B8%8F.p12/file" target="_blank">Tải ngay</a><br><br>
-    <button onclick="closePopup()">Đóng</button>
-  </div>
-</div>
-
-<!-- SCRIPT -->
 <script>
-  function showPopup() {
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    let pass = "";
-    for (let i = 0; i < 10; i++) pass += chars[Math.floor(Math.random() * chars.length)];
-    document.getElementById("password").textContent = pass;
-    document.getElementById("popup").style.display = "flex";
-  }
-  function closePopup() {
-    document.getElementById("popup").style.display = "none";
-  }
+  // --- Mật khẩu tải Regedit V1 ---
+  const btnRegedit = document.getElementById('btn-regedit');
+  const overlay = document.getElementById('overlay');
+  const passwordPopup = document.getElementById('password-popup');
+  const passwordInput = document.getElementById('password-input');
+  const passwordSubmit = document.getElementById('password-submit');
+  const passwordClose = document.getElementById('password-close');
 
-  // Gửi bình luận tới Google Sheets
-  document.getElementById("comment-form").addEventListener("submit", function(e) {
+  // Mật khẩu 10 ký tự ngẫu nhiên bạn muốn:
+  const CORRECT_PASSWORD = "g7a1x9m8qz"; // bạn có thể đổi thành gì đó bạn thích
+
+  btnRegedit.addEventListener('click', e => {
     e.preventDefault();
-    const comment = this.comment.value.trim();
-    if (!comment) return;
-    
-    fetch("https://script.google.com/macros/s/AKfycbz2CuuS2m8-Z2LNAgg1ivx8n4AOednxgWA-TXd3iqTNxSzF3GkZ9-NvNQNqFkmAvaZKWw/exec", {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ comment })
-    });
-
-    document.getElementById("status-comment").textContent = "✅ Đã gửi bình luận!";
-    this.reset();
+    passwordInput.value = "";
+    overlay.style.display = 'block';
+    passwordPopup.style.display = 'block';
+    passwordInput.focus();
   });
 
-  // Hiệu ứng tuyết nhẹ
-  document.addEventListener("DOMContentLoaded", () => {
-    const canvas = document.createElement("canvas");
-    canvas.style.position = "fixed";
-    canvas.style.top = 0;
-    canvas.style.left = 0;
-    canvas.style.pointerEvents = "none";
-    canvas.style.zIndex = 10000;
-    document.body.appendChild(canvas);
+  passwordSubmit.addEventListener('click', () => {
+    const val = passwordInput.value.trim();
+    if(val === CORRECT_PASSWORD){
+      passwordPopup.style.display = 'none';
+      overlay.style.display = 'none';
+      // Link tải file thật
+      window.open('https://example.com/regedit-v1-download', '_blank');
+    } else {
+      alert("Mật khẩu không đúng. Vui lòng thử lại.");
+      passwordInput.focus();
+    }
+  });
 
-    const ctx = canvas.getContext("2d");
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
-    const flakes = Array.from({length: 30}, () => ({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      r: Math.random() * 2 + 1,
-      d: Math.random() + 0.5
-    }));
+  passwordClose.addEventListener('click', () => {
+    passwordPopup.style.display = 'none';
+    overlay.style.display = 'none';
+  });
 
-    function drawFlakes() {
-      ctx.clearRect(0, 0, width, height);
-      ctx.fillStyle = "white";
-      flakes.forEach(flake => {
-        ctx.beginPath();
-        ctx.arc(flake.x, flake.y, flake.r, 0, Math.PI * 2);
-        ctx.fill();
-      });
-      moveFlakes();
+  // Đóng popup khi click ngoài
+  overlay.addEventListener('click', () => {
+    passwordPopup.style.display = 'none';
+    overlay.style.display = 'none';
+  });
+
+  // --- Snow effect (ít) ---
+  const snowflakeCount = 20;
+  for(let i=0; i<snowflakeCount; i++){
+    const snowflake = document.createElement('div');
+    snowflake.classList.add('snowflake');
+    snowflake.style.left = Math.random()*100 + 'vw';
+    snowflake.style.animationDuration = (5 + Math.random()*7) + 's';
+    snowflake.style.animationDelay = Math.random()*10 + 's';
+    snowflake.style.opacity = 0.6 + Math.random()*0.4;
+    snowflake.style.width = snowflake.style.height = (4 + Math.random()*5) + 'px';
+    document.body.appendChild(snowflake);
+  }
+
+  // --- Bình luận gửi lên Google Sheets ---
+  const commentForm = document.getElementById('comment-form');
+  const commentPopup = document.getElementById('comment-popup');
+
+  commentForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const comment = document.getElementById('comment').value.trim();
+
+    if(!comment){
+      alert('Vui lòng nhập nội dung bình luận.');
+      return;
     }
 
-    function moveFlakes() {
-      flakes.forEach(flake => {
-        flake.y += flake.d;
-        if (flake.y > height) {
-          flake.y = 0;
-          flake.x = Math.random() * width;
-        }
-      });
-    }
-
-    setInterval(drawFlakes, 50);
-    window.addEventListener("resize", () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
+    fetch('https://script.google.com/macros/s/AKfycby8VOQb6TVDSU8Y-XJ-pe87XS1Fpdtx6MnA7mQfRNOL02d5Rt4hfjWaExDPN2OViF9E/exec', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: `comment=${encodeURIComponent(comment)}`
+    })
+    .then(res => res.text())
+    .then(() => {
+      commentForm.reset();
+      commentPopup.style.display = 'block';
+      setTimeout(() => {
+        commentPopup.style.display = 'none';
+      }, 3000);
+    })
+    .catch(() => {
+      alert('Gửi bình luận thất bại. Vui lòng thử lại.');
     });
+  });
+
+  // --- Menu active on scroll ---
+  const navLinks = document.querySelectorAll('nav a');
+  const sections = {
+    apps: document.getElementById('apps'),
+    bio: document.getElementById('bio'),
+    comment: document.getElementById('comment')
+  };
+
+  window.addEventListener('scroll', () => {
+    const scrollPos = window.scrollY + window.innerHeight/3;
+
+    for(const key in sections){
+      const sec = sections[key];
+      if(sec.offsetTop <= scrollPos && (sec.offsetTop + sec.offsetHeight) > scrollPos){
+        navLinks.forEach(a => a.classList.remove('active'));
+        document.querySelector(`nav a[href="#${key}"]`).classList.add('active');
+        break;
+      }
+    }
   });
 </script>
 
