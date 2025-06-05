@@ -100,13 +100,45 @@
         opacity: 0;
       }
     }
+
+    /* Popup */
+    #popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.9);
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      display: none;
+      z-index: 999;
+    }
+
+    #countdown {
+      font-size: 20px;
+      margin-top: 10px;
+    }
+
+    #continueBtn {
+      display: none;
+      margin-top: 20px;
+      padding: 10px 25px;
+      font-size: 16px;
+    }
   </style>
 </head>
 <body>
   <div id="container">
-    <h2>Chào Mừng Bạn!
-Vui Lòng Nhấn Vào Nút Xác Minh!</h2>
-    <button onclick="window.location.href='noidung.html'">Xác Minh!!!!</button>
+    <h2>Chào Mừng Bạn!<br>Vui Lòng Nhấn Vào Nút Xác Minh!</h2>
+    <button onclick="showPopup()">Xác Minh!!!!</button>
+  </div>
+
+  <!-- Popup -->
+  <div id="popup">
+    <h3>✅ Xác Minh Thành Công!</h3>
+    <p id="countdown">Vui lòng đợi 3 giây...</p>
+    <button id="continueBtn" onclick="window.location.href='noidung.html'">Tiếp Tục</button>
   </div>
 
   <script>
@@ -124,6 +156,27 @@ Vui Lòng Nhấn Vào Nút Xác Minh!</h2>
 
     document.addEventListener("mousemove", (e) => createHeart(e.clientX, e.clientY));
     document.addEventListener("click", (e) => createHeart(e.clientX, e.clientY));
+
+    function showPopup() {
+      const popup = document.getElementById("popup");
+      const countdownText = document.getElementById("countdown");
+      const continueBtn = document.getElementById("continueBtn");
+      popup.style.display = "block";
+
+      let countdown = 3;
+      countdownText.textContent = `Vui lòng đợi ${countdown} giây...`;
+
+      const interval = setInterval(() => {
+        countdown--;
+        if (countdown > 0) {
+          countdownText.textContent = `Vui lòng đợi ${countdown} giây...`;
+        } else {
+          clearInterval(interval);
+          countdownText.style.display = "none";
+          continueBtn.style.display = "inline-block";
+        }
+      }, 1000);
+    }
   </script>
 </body>
 </html>
