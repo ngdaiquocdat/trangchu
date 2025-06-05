@@ -3,17 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ngdaiquocdat</title>
+  <title>Kho Ứng Dụng</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(to bottom right, #ecf0f1, #d0e0f0);
       margin: 0;
       padding: 0;
-      color: #333;
-      overflow-x: hidden;
+      scroll-behavior: smooth;
     }
-
     header {
       background-color: #3498db;
       color: white;
@@ -23,14 +21,27 @@
       font-weight: bold;
       box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     }
-
+    nav {
+      background: #2980b9;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 10px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
     .app-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 25px;
       padding: 40px 20px;
     }
-
     .app-card {
       background-color: white;
       border-radius: 15px;
@@ -39,234 +50,191 @@
       box-shadow: 0 10px 20px rgba(0,0,0,0.1);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-
     .app-card:hover {
       transform: rotateY(5deg) rotateX(3deg) scale(1.02);
       box-shadow: 0 20px 30px rgba(0,0,0,0.2);
     }
-
-    .app-card h3 {
-      font-size: 20px;
-      margin-bottom: 10px;
-    }
-
-    .app-card p {
-      font-size: 14px;
-      margin-bottom: 15px;
-      color: #666;
-    }
-
-    .app-card a, .app-card button {
-      display: inline-block;
+    .app-card button, .app-card a {
       margin-top: 10px;
       padding: 10px 20px;
       background-color: #2ecc71;
-      color: pink;
+      color: white;
       text-decoration: none;
       border: none;
       border-radius: 8px;
-      font-size: 15px;
       cursor: pointer;
-      transition: background-color 0.3s;
     }
-
-    .app-card a:hover, .app-card button:hover {
+    .app-card button:hover, .app-card a:hover {
       background-color: #27ae60;
     }
-
-    .container {
-      max-width: 500px;
-      margin: 40px auto;
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    }
-
-    .container h2 {
-      text-align: center;
-    }
-
-    input, select, button {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-    }
-
-    .status {
-      text-align: center;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 14px;
-      color: #555;
-    }
-
-    /* Popup mật khẩu */
-    #popup {
+    .popup {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background: rgba(0,0,0,0.5);
-      z-index: 9999;
-      align-items: center;
       justify-content: center;
+      align-items: center;
+      z-index: 9999;
     }
-
-    #popup-content {
+    .popup-content {
       background: white;
-      padding: 25px;
+      padding: 30px;
       border-radius: 12px;
-      max-width: 90%;
-      width: 300px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
       text-align: center;
-      animation: fadeIn 0.3s ease-in-out;
+      max-width: 300px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
+    .container {
+      padding: 40px 20px;
+      text-align: center;
     }
-
-    /* Tuyết */
-    .snowflake {
-      position: fixed;
-      top: -10px;
-      color: #fff;
-      user-select: none;
-      pointer-events: none;
-      font-size: 1em;
-      animation: fall linear infinite;
+    textarea {
+      width: 80%;
+      max-width: 600px;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      font-size: 16px;
     }
-
-    @keyframes fall {
-      0% { transform: translateY(0) translateX(0); opacity: 1; }
-      100% { transform: translateY(100vh) translateX(30px); opacity: 0; }
+    .status {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    footer {
+      background: #3498db;
+      color: white;
+      text-align: center;
+      padding: 20px;
     }
   </style>
 </head>
 <body>
 
-<header>📱Ứng Dụng</header>
+<header>📱 Kho Ứng Dụng</header>
 
-<section class="app-grid">
+<nav>
+  <a href="#apps">🏠 Trang chủ</a>
+  <a href="#binhluan">💬 Bình luận</a>
+  <a href="#bio">ℹ️ Thông tin</a>
+</nav>
+
+<section class="app-grid" id="apps">
   <div class="app-card">
     <h3>Regedit V1</h3>
     <p>Chức năng: Tăng nhạy, Aim Fov, ...</p>
     <button onclick="showPopup()">Tải về</button>
   </div>
-
   <div class="app-card">
-    <h3>Ông Uớc Dí</h3>
-    <p>Lương</p>
+    <h3>Ứng dụng 2</h3>
+    <p>Đạt.</p>
     <a href="https://example.com/download2" target="_blank">Tải về</a>
   </div>
 </section>
 
-<!-- Form Nạp Thẻ -->
-<div class="container">
-  <h2>💳 Nạp Thẻ</h2>
-  <form id="napthe-form">
-    <select name="loai" required>
-      <option value="">-- Chọn loại thẻ --</option>
-      <option value="Viettel">Viettel</option>
-      <option value="Mobifone">UocDiMyThoa...</option>
-      <option value="Vinaphone">ViLuongMy...</option>
-    </select>
-    <input type="text" name="menhgia" placeholder="Mệnh giá (VD: 100000)" required>
-    <input type="text" name="mathe" placeholder="Mã thẻ" required>
-    <input type="text" name="seri" placeholder="Số seri" required>
-    <button type="submit">Nạp Thẻ</button>
+<!-- BÌNH LUẬN -->
+<div class="container" id="binhluan">
+  <h2>💬 Bình luận</h2>
+  <form id="comment-form">
+    <textarea name="comment" rows="4" placeholder="Nhập bình luận..." required></textarea><br>
+    <button type="submit">Gửi bình luận</button>
   </form>
-  <div class="status" id="thongbao"></div>
+  <div class="status" id="status-comment"></div>
 </div>
 
-<!-- BIO -->
-<footer>
-  © 2025 Website | Phát triển bởi ngdaiquocdat✓
+<!-- FOOTER / BIO -->
+<footer id="bio">
+  © 2025 Kho Ứng Dụng - Phát triển bởi Bạn
 </footer>
 
-<!-- Popup -->
-<div id="popup">
-  <div id="popup-content">
-    <h3>🔐 Nhập Key,...(mật khẩu)</h3>
-    <input type="text" id="passwordInput" placeholder="10 ký tự..." />
-    <button onclick="xacNhanMatKhau()">Xác nhận</button>
-    <button onclick="hidePopup()" style="background:#e74c3c; margin-top:10px;">Đóng</button>
-    <div id="popup-error" style="color:red; margin-top:10px;"></div>
+<!-- POPUP MẬT KHẨU -->
+<div class="popup" id="popup">
+  <div class="popup-content">
+    <p>Mật khẩu để tải về là:</p>
+    <h3 id="password"></h3>
+    <a id="downloadLink" href="https://www.mediafire.com/file/9vdxwukqjytifsv/Super_Config%E2%9A%A1%EF%B8%8F.p12/file" target="_blank">Tải ngay</a><br><br>
+    <button onclick="closePopup()">Đóng</button>
   </div>
 </div>
 
-<!-- Script -->
+<!-- SCRIPT -->
 <script>
   function showPopup() {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let pass = "";
+    for (let i = 0; i < 10; i++) pass += chars[Math.floor(Math.random() * chars.length)];
+    document.getElementById("password").textContent = pass;
     document.getElementById("popup").style.display = "flex";
-    document.getElementById("popup-error").textContent = "";
-    document.getElementById("passwordInput").value = "LuOnGdIBaThOaSiEmUpRuP";
   }
-
-  function hidePopup() {
+  function closePopup() {
     document.getElementById("popup").style.display = "none";
   }
 
-  function xacNhanMatKhau() {
-    const pw = document.getElementById("passwordInput").value.trim();
-    if (pw.length === 10) {
-      window.open("https://www.mediafire.com/file/9vdxwukqjytifsv/Super_Config%E2%9A%A1%EF%B8%8F.p12/file", "_blank");
-      hidePopup();
-    } else {
-      document.getElementById("popup-error").textContent = "❌ Mật khẩu Saiii,...!";
-    }
-  }
-
-  // Gửi dữ liệu nạp thẻ
-  document.getElementById("napthe-form").addEventListener("submit", async function(e) {
+  // Gửi bình luận tới Google Sheets
+  document.getElementById("comment-form").addEventListener("submit", function(e) {
     e.preventDefault();
-    const formData = new FormData(this);
-    const data = Object.fromEntries(formData.entries());
-    const thongbao = document.getElementById("thongbao");
+    const comment = this.comment.value.trim();
+    if (!comment) return;
+    
+    fetch("https://script.google.com/macros/s/AKfycbz2CuuS2m8-Z2LNAgg1ivx8n4AOednxgWA-TXd3iqTNxSzF3GkZ9-NvNQNqFkmAvaZKWw/exec", {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ comment })
+    });
 
-    try {
-      const res = await fetch("https://script.google.com/macros/s/AKfycbz2CuuS2m8-Z2LNAgg1ivx8n4AOednxgWA-TXd3iqTNxSzF3GkZ9-NvNQNqFkmAvaZKWw/exec", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-      });
-
-      const result = await res.text();
-      thongbao.style.color = "green";
-      thongbao.textContent = result;
-      this.reset();
-    } catch (err) {
-      thongbao.style.color = "red";
-      thongbao.textContent = "❌ Thẻ Saiii,...!!.";
-    }
+    document.getElementById("status-comment").textContent = "✅ Đã gửi bình luận!";
+    this.reset();
   });
 
-  // Hiệu ứng tuyết
-  function createSnowflake() {
-    const snowflake = document.createElement("div");
-    snowflake.className = "snowflake";
-    snowflake.textContent = "LuongMy";
-    snowflake.style.left = Math.random() * 100 + "vw";
-    snowflake.style.animationDuration = (5 + Math.random() * 5) + "s";
-    snowflake.style.opacity = Math.random();
-    snowflake.style.fontSize = Math.random() * 10 + 10 + "px";
-    document.body.appendChild(snowflake);
-    setTimeout(() => snowflake.remove(), 10000);
-  }
-  setInterval(createSnowflake, 700);
+  // Hiệu ứng tuyết nhẹ
+  document.addEventListener("DOMContentLoaded", () => {
+    const canvas = document.createElement("canvas");
+    canvas.style.position = "fixed";
+    canvas.style.top = 0;
+    canvas.style.left = 0;
+    canvas.style.pointerEvents = "none";
+    canvas.style.zIndex = 10000;
+    document.body.appendChild(canvas);
+
+    const ctx = canvas.getContext("2d");
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+    const flakes = Array.from({length: 30}, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      r: Math.random() * 2 + 1,
+      d: Math.random() + 0.5
+    }));
+
+    function drawFlakes() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = "white";
+      flakes.forEach(flake => {
+        ctx.beginPath();
+        ctx.arc(flake.x, flake.y, flake.r, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      moveFlakes();
+    }
+
+    function moveFlakes() {
+      flakes.forEach(flake => {
+        flake.y += flake.d;
+        if (flake.y > height) {
+          flake.y = 0;
+          flake.x = Math.random() * width;
+        }
+      });
+    }
+
+    setInterval(drawFlakes, 50);
+    window.addEventListener("resize", () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+  });
 </script>
 
 </body>
