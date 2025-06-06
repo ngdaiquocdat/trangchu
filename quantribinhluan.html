@@ -1,126 +1,66 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Quản trị Bình luận (Local)</title>
-<style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f0f4f7;
-    margin: 0; padding: 20px;
-    color: #222;
-  }
-  h1 {
-    text-align: center;
-    margin-bottom: 25px;
-    color: #34495e;
-  }
-  #comments-list {
-    max-width: 800px;
-    margin: 0 auto 30px;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    padding: 20px;
-    min-height: 200px;
-  }
-  .comment-item {
-    border-bottom: 1px solid #eee;
-    padding: 12px 0;
-  }
-  .comment-item:last-child {
-    border-bottom: none;
-  }
-  .comment-date {
-    color: #888;
-    font-size: 13px;
-    margin-bottom: 6px;
-  }
-  .comment-text {
-    font-size: 16px;
-    line-height: 1.4;
-    white-space: pre-wrap;
-  }
-  #comment-form {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  textarea {
-    width: 100%;
-    height: 100px;
-    font-size: 16px;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    resize: vertical;
-  }
-  button {
-    margin-top: 10px;
-    padding: 12px 25px;
-    background-color: #3498db;
-    color: white;
-    font-size: 16px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  button:hover {
-    background-color: #2980b9;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quản trị bình luận</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #eef2f5;
+      padding: 30px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .comment {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .time {
+      font-size: 12px;
+      color: #888;
+    }
+  </style>
 </head>
 <body>
+  <h2>Danh sách bình luận</h2>
+  <div id="commentList"></div>
 
-<h1>Quản trị Bình luận (Local)</h1>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
 
-<div id="comments-list">
-  <p style="text-align:center; color:#888;">Chưa có bình luận nào.</p>
-</div>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDQPux4Isbx4GpsA890dKGInoMYZjFVgLQ",
+      authDomain: "kho-ung-dung-25296.firebaseapp.com",
+      projectId: "kho-ung-dung-25296",
+      storageBucket: "kho-ung-dung-25296.firebasestorage.app",
+      messagingSenderId: "601484005010",
+      appId: "1:601484005010:web:45347b9cc182017b9aa04b",
+      measurementId: "G-CY1DKBSKWC"
+    };
 
-<form id="comment-form">
-  <textarea id="comment-input" placeholder="Nhập bình luận mới..."></textarea>
-  <button type="submit">Thêm bình luận</button>
-</form>
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
 
-<script>
-  const commentsList = document.getElementById('comments-list');
-  const form = document.getElementById('comment-form');
-  const input = document.getElementById('comment-input');
+    const listDiv = document.getElementById("commentList");
 
-  // Load bình luận từ localStorage
-  function loadComments() {
-    const comments = JSON.parse(localStorage.getItem('comments') || '[]');
-    if(comments.length === 0) {
-      commentsList.innerHTML = '<p style="text-align:center; color:#888;">Chưa có bình luận nào.</p>';
-      return;
-    }
-    commentsList.innerHTML = '';
-    comments.forEach(cmt => {
-      const div = document.createElement('div');
-      div.className = 'comment-item';
+    database.ref("binhluan").on("child_added", function(snapshot) {
+      const data = snapshot.val();
+      const div = document.createElement("div");
+      div.className = "comment";
       div.innerHTML = `
-        <div class="comment-date">${new Date(cmt.date).toLocaleString()}</div>
-        <div class="comment-text">${cmt.text}</div>
+        <div>${data.noiDung}</div>
+        <div class="time">${data.thoiGian}</div>
       `;
-      commentsList.appendChild(div);
+      listDiv.prepend(div);
     });
-  }
-
-  // Thêm bình luận mới
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const text = input.value.trim();
-    if(!text) return alert('Vui lòng nhập nội dung bình luận.');
-    const comments = JSON.parse(localStorage.getItem('comments') || '[]');
-    comments.push({text, date: new Date().toISOString()});
-    localStorage.setItem('comments', JSON.stringify(comments));
-    input.value = '';
-    loadComments();
-  });
-
-  loadComments();
-</script>
-
+  </script>
 </body>
 </html>
