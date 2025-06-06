@@ -2,81 +2,175 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Gửi bình luận</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>📱 Kho Ứng Dụng</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #f0f4f8;
-      padding: 30px;
-      text-align: center;
+      margin: 0;
+      background: linear-gradient(to bottom right, #ecf0f1, #d0e0f0);
+      overflow-x: hidden;
     }
-    textarea {
-      width: 90%;
-      max-width: 500px;
-      height: 120px;
-      padding: 12px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-      resize: none;
-    }
-    button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      font-size: 16px;
+
+    header {
       background-color: #3498db;
       color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
+      text-align: center;
+      padding: 20px;
+      font-size: 26px;
+      font-weight: bold;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    nav {
+      background: #2980b9;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 14px;
+      border-radius: 6px;
       transition: background 0.3s;
     }
-    button:hover {
-      background-color: #2980b9;
+
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .app-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 25px;
+      padding: 40px 20px;
+    }
+
+    .app-card {
+      background-color: white;
+      border-radius: 15px;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .app-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 20px 30px rgba(0,0,0,0.2);
+    }
+
+    .app-card h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .app-card p {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 15px;
+    }
+
+    .app-card a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #2ecc71;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+
+    .app-card a:hover {
+      background-color: #27ae60;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    /* Tuyết */
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      color: #fff;
+      user-select: none;
+      z-index: 9999;
+      pointer-events: none;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10px);
+      }
+      100% {
+        transform: translateY(100vh);
+      }
     }
   </style>
 </head>
 <body>
-  <h2>Gửi bình luận</h2>
-  <textarea id="commentInput" placeholder="Nhập bình luận tại đây..."></textarea><br>
-  <button onclick="guiBinhLuan()">Gửi bình luận</button>
 
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+<header>📱 Kho Ứng Dụng</header>
 
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyDQPux4Isbx4GpsA890dKGInoMYZjFVgLQ",
-      authDomain: "kho-ung-dung-25296.firebaseapp.com",
-      projectId: "kho-ung-dung-25296",
-      storageBucket: "kho-ung-dung-25296.firebasestorage.app",
-      messagingSenderId: "601484005010",
-      appId: "1:601484005010:web:45347b9cc182017b9aa04b",
-      measurementId: "G-CY1DKBSKWC"
-    };
+<nav>
+  <a href="index.html">Trang chủ</a>
+  <a href="noidung.html">Gửi bình luận</a>
+  <a href="quantribinhluan.html">Quản lý bình luận</a>
+</nav>
 
-    firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
+<section class="app-grid">
+  <div class="app-card">
+    <h3>Regedit V1</h3>
+    <p>Chức Năng: Tăng nhạy, Aim Fov, ...</p>
+    <a href="#" onclick="showPassword()">Tải về</a>
+  </div>
 
-    function guiBinhLuan() {
-      const noiDung = document.getElementById("commentInput").value.trim();
-      const thoiGian = new Date().toLocaleString();
+  <div class="app-card">
+    <h3>Ứng dụng 2</h3>
+    <p>Đạt.</p>
+    <a href="https://example.com/download2" target="_blank">Tải về</a>
+  </div>
+</section>
 
-      if (noiDung === "") {
-        alert("Vui lòng nhập bình luận!");
-        return;
-      }
+<footer>© 2025 Kho Ứng Dụng</footer>
 
-      database.ref("binhluan").push({
-        noiDung: noiDung,
-        thoiGian: thoiGian
-      });
+<!-- Script hiệu ứng tuyết nhẹ -->
+<script>
+  function createSnowflake() {
+    const snowflake = document.createElement("div");
+    snowflake.classList.add("snowflake");
+    snowflake.textContent = "❄";
+    snowflake.style.left = Math.random() * 100 + "vw";
+    snowflake.style.fontSize = Math.random() * 10 + 10 + "px";
+    snowflake.style.animationDuration = Math.random() * 3 + 2 + "s";
+    document.body.appendChild(snowflake);
+    setTimeout(() => snowflake.remove(), 5000);
+  }
 
-      alert("Đã gửi bình luận!");
-      document.getElementById("commentInput").value = "";
+  setInterval(createSnowflake, 800); // Ít tuyết hơn
+</script>
+
+<!-- Script mật khẩu popup -->
+<script>
+  function showPassword() {
+    const mk = prompt("Nhập mật khẩu để tải:");
+    if (mk === "abcdefghij") {
+      window.open("https://www.mediafire.com/file/9vdxwukqjytifsv/Super_Config%E2%9A%A1%EF%B8%8F.p12/file", "_blank");
+    } else {
+      alert("Sai mật khẩu!");
     }
-  </script>
+  }
+</script>
+
 </body>
 </html>
