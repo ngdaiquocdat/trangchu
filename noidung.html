@@ -3,12 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>📱 Kho Ứng Dụng</title>
+  <title>Kho Ứng Dụng</title>
   <style>
+    /* Reset & cơ bản */
     body {
       font-family: 'Segoe UI', sans-serif;
-      margin: 0;
       background: linear-gradient(to bottom right, #ecf0f1, #d0e0f0);
+      color: #333;
+      margin: 0;
+      padding: 0;
       overflow-x: hidden;
     }
 
@@ -20,34 +23,43 @@
       font-size: 26px;
       font-weight: bold;
       box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
     nav {
-      background: #2980b9;
-      padding: 10px 20px;
+      background-color: #2980b9;
       display: flex;
       justify-content: center;
-      gap: 20px;
+      gap: 30px;
+      padding: 12px 0;
+      font-weight: 600;
+      position: sticky;
+      top: 68px; /* header cao 68px */
+      z-index: 999;
     }
 
     nav a {
       color: white;
       text-decoration: none;
-      font-weight: bold;
-      padding: 8px 14px;
+      font-size: 18px;
+      padding: 6px 12px;
       border-radius: 6px;
-      transition: background 0.3s;
+      transition: background-color 0.3s ease;
     }
 
     nav a:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background-color: #1abc9c;
     }
 
     .app-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 25px;
-      padding: 40px 20px;
+      padding: 40px 20px 20px 20px;
+      max-width: 1100px;
+      margin: 0 auto 40px;
     }
 
     .app-card {
@@ -57,64 +69,117 @@
       text-align: center;
       box-shadow: 0 10px 20px rgba(0,0,0,0.1);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: default;
     }
 
     .app-card:hover {
-      transform: scale(1.02);
+      transform: rotateY(5deg) rotateX(3deg) scale(1.02);
       box-shadow: 0 20px 30px rgba(0,0,0,0.2);
+      cursor: pointer;
     }
 
     .app-card h3 {
-      font-size: 20px;
-      margin-bottom: 10px;
+      font-size: 22px;
+      margin-bottom: 12px;
     }
 
     .app-card p {
       font-size: 14px;
+      margin-bottom: 20px;
       color: #666;
-      margin-bottom: 15px;
+      min-height: 40px;
     }
 
     .app-card a {
       display: inline-block;
       margin-top: 10px;
-      padding: 10px 20px;
+      padding: 10px 24px;
       background-color: #2ecc71;
       color: white;
       text-decoration: none;
       border-radius: 8px;
-      transition: background-color 0.3s;
+      transition: background-color 0.3s ease;
     }
 
     .app-card a:hover {
       background-color: #27ae60;
     }
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: #666;
-      font-size: 14px;
-    }
-
-    /* Tuyết */
+    /* Hiệu ứng tuyết nhẹ */
     .snowflake {
       position: fixed;
       top: -10px;
-      color: #fff;
-      user-select: none;
-      z-index: 9999;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
       pointer-events: none;
-      animation: fall linear infinite;
+      animation-name: fall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      animation-duration: 10s;
+      box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.6);
     }
 
     @keyframes fall {
       0% {
-        transform: translateY(-10px);
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.8;
       }
       100% {
-        transform: translateY(100vh);
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0.2;
       }
+    }
+
+    /* Form bình luận */
+    .comment-section {
+      max-width: 600px;
+      margin: 0 auto 60px;
+      background: white;
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .comment-section h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2980b9;
+    }
+
+    .comment-section textarea {
+      width: 100%;
+      height: 100px;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      resize: vertical;
+      box-sizing: border-box;
+    }
+
+    .comment-section button {
+      margin-top: 12px;
+      background-color: #2980b9;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .comment-section button:hover {
+      background-color: #1abc9c;
+    }
+
+    .comment-section .status {
+      margin-top: 12px;
+      font-weight: 600;
+      color: green;
+      min-height: 20px;
+      text-align: center;
     }
   </style>
 </head>
@@ -124,51 +189,107 @@
 
 <nav>
   <a href="index.html">Trang chủ</a>
-  <a href="noidung.html">Gửi bình luận</a>
-  <a href="quantribinhluan.html">Quản lý bình luận</a>
+  <a href="noidung.html">Ứng Dụng</a>
+  <a href="youtube.com">Youtube</a>
 </nav>
 
 <section class="app-grid">
   <div class="app-card">
     <h3>Regedit V1</h3>
     <p>Chức Năng: Tăng nhạy, Aim Fov, ...</p>
-    <a href="#" onclick="showPassword()">Tải về</a>
+    <a href="#" onclick="showPasswordPrompt()">Tải về</a>
   </div>
 
   <div class="app-card">
     <h3>Ứng dụng 2</h3>
     <p>Đạt.</p>
-    <a href="https://example.com/download2" target="_blank">Tải về</a>
+    <a href="https://example.com/download2" target="_blank" rel="noopener noreferrer">Tải về</a>
   </div>
 </section>
 
-<footer>© 2025 Kho Ứng Dụng</footer>
+<!-- Form bình luận realtime -->
+<section class="comment-section">
+  <h2>Gửi bình luận</h2>
+  <textarea id="commentInput" placeholder="Viết bình luận của bạn..."></textarea>
+  <button onclick="submitComment()">Gửi bình luận</button>
+  <div class="status" id="statusMsg"></div>
+</section>
 
-<!-- Script hiệu ứng tuyết nhẹ -->
 <script>
-  function createSnowflake() {
-    const snowflake = document.createElement("div");
-    snowflake.classList.add("snowflake");
-    snowflake.textContent = "❄";
-    snowflake.style.left = Math.random() * 100 + "vw";
-    snowflake.style.fontSize = Math.random() * 10 + 10 + "px";
-    snowflake.style.animationDuration = Math.random() * 3 + 2 + "s";
+  // Hiệu ứng tuyết nhẹ - ít hơn, mượt hơn
+  const snowflakeCount = 25;
+  for (let i = 0; i < snowflakeCount; i++) {
+    const snowflake = document.createElement('div');
+    snowflake.classList.add('snowflake');
+    snowflake.style.left = Math.random() * 100 + 'vw';
+    const size = Math.random() * 6 + 4;
+    snowflake.style.width = size + 'px';
+    snowflake.style.height = size + 'px';
+    snowflake.style.animationDuration = (8 + Math.random() * 7) + 's';
+    snowflake.style.animationDelay = Math.random() * 10 + 's';
     document.body.appendChild(snowflake);
-    setTimeout(() => snowflake.remove(), 5000);
   }
 
-  setInterval(createSnowflake, 800); // Ít tuyết hơn
-</script>
-
-<!-- Script mật khẩu popup -->
-<script>
-  function showPassword() {
-    const mk = prompt("Nhập mật khẩu để tải:");
-    if (mk === "abcdefghij") {
+  // Mật khẩu tải Regedit
+  function showPasswordPrompt() {
+    const password = prompt("Nhập mật khẩu để tải:");
+    if (password === "ZyXwVuTsRq") { // mật khẩu 10 chữ cái
       window.open("https://www.mediafire.com/file/9vdxwukqjytifsv/Super_Config%E2%9A%A1%EF%B8%8F.p12/file", "_blank");
     } else {
       alert("Sai mật khẩu!");
     }
+  }
+</script>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+  // Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyDQPux4Isbx4GpsA890dKGInoMYZjFVgLQ",
+    authDomain: "kho-ung-dung-25296.firebaseapp.com",
+    databaseURL: "https://kho-ung-dung-25296-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "kho-ung-dung-25296",
+    storageBucket: "kho-ung-dung-25296.appspot.com",
+    messagingSenderId: "601484005010",
+    appId: "1:601484005010:web:45347b9cc182017b9aa04b",
+    measurementId: "G-CY1DKBSKWC"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+
+  // Hàm gửi bình luận lên Firebase Realtime Database
+  function submitComment() {
+    const commentInput = document.getElementById('commentInput');
+    const statusMsg = document.getElementById('statusMsg');
+    const comment = commentInput.value.trim();
+
+    if (comment.length === 0) {
+      alert("Vui lòng nhập bình luận!");
+      return;
+    }
+
+    // Tạo object bình luận với thời gian
+    const commentData = {
+      text: comment,
+      timestamp: new Date().toISOString()
+    };
+
+    // Gửi dữ liệu lên db 'comments'
+    db.ref('comments').push(commentData)
+      .then(() => {
+        statusMsg.textContent = "Gửi bình luận thành công!";
+        commentInput.value = "";
+        setTimeout(() => statusMsg.textContent = "", 3000);
+      })
+      .catch((error) => {
+        console.error("Lỗi gửi bình luận:", error);
+        statusMsg.textContent = "Gửi bình luận thất bại!";
+      });
   }
 </script>
 
