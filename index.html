@@ -1,123 +1,74 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mô Phỏng One UI 7</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Màn hình khoá One UI 7</title>
   <style>
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
+      padding: 0;
+    }
+    body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f2f3f5;
-    }
-
-    .lock-screen, .home-screen {
-      height: 100vh;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.6s ease;
-    }
-
-    .lock-screen {
-      background: url('https://i.imgur.com/VHdqVVa.jpg') center/cover no-repeat;
+      background: url('https://i.imgur.com/9vYDv0W.jpeg') no-repeat center center/cover;
       color: white;
-    }
-
-    .lock-screen h1 {
-      font-size: 36px;
-      margin-bottom: 10px;
-    }
-
-    .lock-screen button {
-      padding: 10px 25px;
-      font-size: 18px;
-      border: none;
-      border-radius: 25px;
-      background-color: rgba(255, 255, 255, 0.8);
-      color: #333;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .lock-screen button:hover {
-      background-color: white;
-    }
-
-    .home-screen {
-      display: none;
-      padding: 20px;
-    }
-
-    .app-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      justify-items: center;
-    }
-
-    .app {
-      width: 60px;
-      height: 60px;
-      background-color: white;
-      border-radius: 20px;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      height: 100vh;
+      overflow: hidden;
       display: flex;
-      align-items: center;
-      justify-content: center;
       flex-direction: column;
-      font-size: 12px;
-      text-align: center;
-      transition: transform 0.3s;
+      justify-content: center;
+      align-items: center;
     }
-
-    .app:hover {
-      transform: scale(1.05);
+    .clock {
+      font-size: 64px;
+      font-weight: 600;
     }
-
-    .app img {
-      width: 30px;
-      height: 30px;
-      margin-bottom: 5px;
+    .date {
+      font-size: 20px;
+      margin-top: 5px;
+      opacity: 0.85;
+    }
+    .lock-icon {
+      margin-top: 30px;
+      font-size: 20px;
+      opacity: 0.7;
+    }
+    .swipe {
+      position: absolute;
+      bottom: 40px;
+      font-size: 16px;
+      opacity: 0.8;
+      animation: swipeUp 2s infinite;
+    }
+    @keyframes swipeUp {
+      0%, 100% { transform: translateY(0); opacity: 0.8; }
+      50% { transform: translateY(-10px); opacity: 1; }
     }
   </style>
 </head>
 <body>
-  <div class="lock-screen" id="lockScreen">
-    <h1>11:24</h1>
-    <p>Thứ Hai, 17 Tháng 6</p>
-    <button onclick="unlock()">Vuốt để mở khóa</button>
-  </div>
-
-  <div class="home-screen" id="homeScreen">
-    <h2 style="margin-bottom: 20px;">Màn hình chính</h2>
-    <div class="app-grid">
-      <div class="app">
-        <img src="https://img.icons8.com/color/48/000000/phone.png" />
-        <span>Điện thoại</span>
-      </div>
-      <div class="app">
-        <img src="https://img.icons8.com/color/48/000000/sms.png" />
-        <span>Tin nhắn</span>
-      </div>
-      <div class="app">
-        <img src="https://img.icons8.com/color/48/000000/gallery.png" />
-        <span>Thư viện</span>
-      </div>
-      <div class="app">
-        <img src="https://img.icons8.com/color/48/000000/settings--v1.png" />
-        <span>Cài đặt</span>
-      </div>
-    </div>
-  </div>
+  <div class="clock" id="clock">11:24</div>
+  <div class="date" id="date">Thứ Hai, 17 Tháng 6</div>
+  <div class="lock-icon">🔒 Đã khóa</div>
+  <div class="swipe">Vuốt để mở khóa ↑</div>
 
   <script>
-    function unlock() {
-      document.getElementById("lockScreen").style.display = "none";
-      document.getElementById("homeScreen").style.display = "flex";
+    function updateTime() {
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2, '0');
+      const mins = now.getMinutes().toString().padStart(2, '0');
+      document.getElementById("clock").textContent = `${hours}:${mins}`;
+
+      const weekdays = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
+      const day = weekdays[now.getDay()];
+      const date = now.getDate();
+      const month = now.getMonth() + 1;
+      document.getElementById("date").textContent = `${day}, ${date} Tháng ${month}`;
     }
+    updateTime();
+    setInterval(updateTime, 60000);
   </script>
 </body>
 </html>
