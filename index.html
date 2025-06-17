@@ -3,70 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>One UI 7 - Khóa & Chính</title>
+  <title>One UI 7 Giả lập</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #000;
-      color: white;
-      overflow: hidden;
-    }
+    * {box-sizing: border-box; margin: 0; padding: 0;}
+    body {font-family: 'Segoe UI', sans-serif; background-color: #000; color: white; overflow: hidden;}
 
     .screen {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      transition: transform 0.8s ease;
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100vh;
+      transition: opacity 0.6s ease;
     }
 
     .lock-screen {
       background: url('https://i.imgur.com/9vYDv0W.jpeg') no-repeat center center/cover;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
       z-index: 2;
     }
 
-    .clock {
-      font-size: 64px;
-      font-weight: 600;
-    }
-
-    .date {
-      font-size: 20px;
-      margin-top: 5px;
-      opacity: 0.85;
-    }
-
+    .clock {font-size: 64px; font-weight: 600;}
+    .date {font-size: 20px; margin-top: 5px; opacity: 0.85;}
     .swipe {
-      position: absolute;
-      bottom: 40px;
-      font-size: 16px;
-      opacity: 0.8;
+      position: absolute; bottom: 40px; font-size: 16px; opacity: 0.8;
       animation: swipeUp 2s infinite;
     }
 
     @keyframes swipeUp {
-      0%, 100% { transform: translateY(0); opacity: 0.8; }
-      50% { transform: translateY(-10px); opacity: 1; }
+      0%, 100% {transform: translateY(0); opacity: 0.8;}
+      50% {transform: translateY(-10px); opacity: 1;}
     }
 
     .home-screen {
-      background: #f2f3f5;
-      color: #000;
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 20px;
+      background: #f2f3f5; color: #000;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: flex-start;
+      padding: 20px; z-index: 1; display: none;
     }
 
     .apps {
@@ -87,23 +58,16 @@
       transition: transform 0.2s;
     }
 
-    .app:hover {
-      transform: scale(1.05);
-    }
-
-    .app img {
-      width: 30px;
-      height: 30px;
-      margin-bottom: 5px;
-    }
+    .app:hover {transform: scale(1.05);}
+    .app img {width: 30px; height: 30px; margin-bottom: 5px;}
   </style>
 </head>
 <body>
 
   <!-- Màn hình khóa -->
   <div class="screen lock-screen" id="lockScreen">
-    <div class="clock" id="clock">11:24</div>
-    <div class="date" id="date">Thứ Hai, 17 Tháng 6</div>
+    <div class="clock" id="clock">--:--</div>
+    <div class="date" id="date">Đang tải...</div>
     <div class="swipe" onclick="unlock()">Vuốt để mở khóa ↑</div>
   </div>
 
@@ -146,8 +110,19 @@
     updateTime();
     setInterval(updateTime, 60000);
 
+    // Vuốt để mở khóa
+    let startY = 0;
+    const lockScreen = document.getElementById("lockScreen");
+    lockScreen.addEventListener("touchstart", (e) => {
+      startY = e.touches[0].clientY;
+    });
+    lockScreen.addEventListener("touchend", (e) => {
+      const endY = e.changedTouches[0].clientY;
+      if (startY - endY > 50) unlock();
+    });
+
     function unlock() {
-      document.getElementById("lockScreen").style.display = "none";
+      lockScreen.style.display = "none";
       document.getElementById("homeScreen").style.display = "flex";
     }
   </script>
